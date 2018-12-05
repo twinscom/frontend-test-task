@@ -1,5 +1,7 @@
 # Frontend Test Task
 
+[![Travis CI build status](https://img.shields.io/travis/twinscom/frontend-test-task.svg?style=flat-square)](https://travis-ci.org/twinscom/frontend-test-task)
+
 ## The task
 
 Create a useful app using [The Bored API](https://www.boredapi.com/).
