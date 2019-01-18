@@ -1,0 +1,11 @@
+.footer{
+
+  .app-icon, a{
+    @include inline-block(middle);
+  }
+
+  .app-icon{
+    margin-left: 10px;
+    @include calc("width", "50% - 12px");
+  }
+}

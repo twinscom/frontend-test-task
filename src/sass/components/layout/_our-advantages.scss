@@ -1,0 +1,11 @@
+.our-advantages {
+  ul{
+    li{
+      text-align: center;
+    }
+    .icon{
+      @include inline-block(middle);
+      width: 50%;
+    }
+  }
+}

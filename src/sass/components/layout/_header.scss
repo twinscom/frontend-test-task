@@ -1,0 +1,48 @@
+.header {
+  background: $dark-blue;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+
+  a{
+    color: $off-white;
+    @include inline-block(middle);
+  }
+
+  .header-content{
+    height: 100px;
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    .left-side{
+      @include flex(0 0 50%);
+    }
+
+    .right-side{
+      @include flex(0 0 50%);
+      text-align: right;
+    }
+
+    .menu-item{
+      margin-right: 30px;
+      font-size: 26px;
+    }
+  }
+
+  .header-logo{
+    display: block;
+    .icon{
+      @include inline-block(middle);
+    }
+
+    .logo{
+      width: 70%;
+    }
+
+    .logo-mob{
+      width: 20%;
+    }
+  }
+}

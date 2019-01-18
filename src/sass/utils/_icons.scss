@@ -1,0 +1,30 @@
+
+$advantages: beautiful, easy, social, community, privacy, timeline;
+
+.our-advantages ul{
+  .icon{
+    @each $adv in $advantages{
+      &.#{$adv}{
+        @include common-icon($adv);
+      }
+    }
+  }
+}
+
+$apps: appstore, playstore;
+.app-icon{
+  @each $app in $apps{
+    &.#{$app}{
+      @include common-icon($app);
+    }
+  }
+}
+
+$logos: logo, logo-mob;
+.icon{
+  @each $logo in $logos{
+    &.#{$logo}{
+      @include common-icon($logo);
+    }
+  }
+}

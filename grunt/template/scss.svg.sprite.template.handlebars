@@ -1,0 +1,40 @@
+${{commonName}} : (
+    'width'     :   {{spriteWidth}}px,
+    'height'    :   {{spriteHeight}}px,
+    'image'     :   './../../webApp/generated/svg_images/{{commonName}}/{{{sprite}}}',
+    {{#shapes}}
+    '{{base}}'      :   (
+        'offset_x'      :   {{position.relative.x}}%,
+        'offset_y'      :   {{position.relative.y}}%,
+        'width'         :   {{width.outer}}px,
+        'height'        :   {{height.outer}}px
+        ){{^last}},{{/last}}
+    {{/shapes}}
+);
+
+
+@mixin background-size($background-size) {
+  -webkit-background-size: $background-size;
+     -moz-background-size: $background-size;
+       -o-background-size: $background-size;
+          background-size: $background-size;
+}
+
+@mixin {{commonName}}-icon($name, $sprite : ${{commonName}}){
+    $icon : map-get($sprite, $name);
+    $image-width : map-get($icon, 'width');
+    $image-height : map-get($icon, 'height');
+
+    &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height:0;
+        background-image: url(map-get($sprite, 'image'));
+        background-position: map-get($icon, 'offset_x') map-get($icon, 'offset_y');
+        padding-bottom: percentage($image-height/$image-width);
+        @include background-size(percentage(map-get($sprite, 'width')/$image-width) percentage(map-get($sprite, 'height')/$image-height));
+        background-repeat:no-repeat;
+    }
+
+}

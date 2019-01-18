@@ -1,0 +1,50 @@
+.get-started{
+  height: 34vh;
+  position: relative;
+  @include flexbox();
+  @include align-items(center);
+
+  &:after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    display: block;
+    position: absolute;
+    top: 0;
+    background: $dark-grey;
+    @include opacity(0.6);
+  }
+
+  &:before{
+    content: "";
+    background: url("/webApp/bg/get-started-img.jpg")50% 50% no-repeat;
+    background-size: cover;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    @include opacity(0.8);
+  }
+
+  .get-link{
+    position: relative;
+    z-index: 15;
+    @include inline-block(middle);
+    padding: 14px 44px;
+    font-size: 24px;
+    color: $white;
+    border: 3px solid $white;
+
+    &:before{
+      content: "";
+      display: block;
+      position: absolute;
+      left: 3px; top: 3px;
+      @include calc("width", "100% - 8px");
+      @include calc("height", "100% - 8px");
+      border: 1px solid $white;
+    }
+  }
+}
