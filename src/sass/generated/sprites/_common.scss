@@ -1,64 +1,88 @@
 $common : (
     'width'     :   240px,
-    'height'    :   184px,
+    'height'    :   240px,
     'image'     :   './../../webApp/generated/svg_images/common/common.svg',
     'appstore'      :   (
-        'offset_x'      :   0%,
+        'offset_x'      :   33.333333333333336%,
         'offset_y'      :   0%,
         'width'         :   60px,
         'height'        :   23.41px
         ),
     'beautiful'      :   (
-        'offset_x'      :   0%,
-        'offset_y'      :   18.879032258064516%,
+        'offset_x'      :   33.333333333333336%,
+        'offset_y'      :   66.66666666666667%,
         'width'         :   60px,
         'height'        :   60px
         ),
-    'community'      :   (
+    'bucket-list'      :   (
+        'offset_x'      :   0%,
+        'offset_y'      :   33.333333333333336%,
+        'width'         :   60px,
+        'height'        :   60px
+        ),
+    'check-box'      :   (
         'offset_x'      :   33.333333333333336%,
+        'offset_y'      :   33.333333333333336%,
+        'width'         :   60px,
+        'height'        :   60px
+        ),
+    'check-mark'      :   (
+        'offset_x'      :   66.66666666666667%,
         'offset_y'      :   0%,
         'width'         :   60px,
         'height'        :   60px
         ),
-    'easy'      :   (
+    'close'      :   (
         'offset_x'      :   66.66666666666667%,
+        'offset_y'      :   33.333333333333336%,
+        'width'         :   60px,
+        'height'        :   60px
+        ),
+    'community'      :   (
+        'offset_x'      :   0%,
+        'offset_y'      :   66.66666666666667%,
+        'width'         :   60px,
+        'height'        :   60px
+        ),
+    'easy'      :   (
+        'offset_x'      :   0%,
         'offset_y'      :   0%,
         'width'         :   60px,
         'height'        :   60px
         ),
     'logo'      :   (
-        'offset_x'      :   66.66666666666667%,
-        'offset_y'      :   36.54080389768575%,
+        'offset_x'      :   33.333333333333336%,
+        'offset_y'      :   10.631244323342417%,
         'width'         :   60px,
         'height'        :   19.8px
         ),
     'logo-mob'      :   (
-        'offset_x'      :   0%,
-        'offset_y'      :   58.12543554006969%,
+        'offset_x'      :   66.66666666666667%,
+        'offset_y'      :   60.150375939849624%,
         'width'         :   60px,
         'height'        :   40.5px
         ),
     'playstore'      :   (
-        'offset_x'      :   33.333333333333336%,
-        'offset_y'      :   37.34362357627435%,
+        'offset_x'      :   100%,
+        'offset_y'      :   0%,
         'width'         :   60px,
         'height'        :   23.33px
         ),
     'privacy'      :   (
         'offset_x'      :   100%,
-        'offset_y'      :   0%,
+        'offset_y'      :   12.96111111111111%,
         'width'         :   60px,
         'height'        :   60px
         ),
     'social'      :   (
         'offset_x'      :   100%,
-        'offset_y'      :   48.38709677419355%,
+        'offset_y'      :   46.294444444444444%,
         'width'         :   60px,
         'height'        :   60px
         ),
     'timeline'      :   (
         'offset_x'      :   0%,
-        'offset_y'      :   99.9274193548387%,
+        'offset_y'      :   100%,
         'width'         :   60px,
         'height'        :   60px
         )

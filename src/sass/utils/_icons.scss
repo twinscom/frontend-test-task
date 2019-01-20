@@ -28,3 +28,11 @@ $logos: logo, logo-mob;
     }
   }
 }
+
+.remove-icon{
+  @include common-icon(close);
+}
+
+.bucket-list{
+  @include common-icon(bucket-list);
+}

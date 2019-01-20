@@ -2,10 +2,32 @@
   ul{
     li{
       text-align: center;
+      margin: 10px 0;
     }
     .icon{
       @include inline-block(middle);
       width: 50%;
+    }
+  }
+
+  .main-title{
+    margin-bottom: 0;
+  }
+
+  .main-subtitle{
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .adv-wrap-item{
+    background: $white;
+    padding: 10px;
+    height: 100%;
+    @include box-shadow(0px, 5px, 5px, rgba(#000, 0.15));
+
+    p{
+      color: $grey;
+      font-size: 14px;
     }
   }
 }

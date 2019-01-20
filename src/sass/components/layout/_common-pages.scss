@@ -1,0 +1,27 @@
+
+.home-page{
+  .helpers{
+    background: $white;
+    font-style: italic;
+    .bucket-list{
+      @include inline-block(middle);
+      width: 100px;
+      float: left;
+      margin-top: -10px;
+    }
+  }
+}
+
+.create-list-page{
+  .default-form{
+    padding: 20px;
+    background: $white;
+    border: 1px solid $border-clr;
+  }
+}
+
+.remove-icon{
+  cursor: pointer;
+  display: inline-block;
+  width: 40px;
+}

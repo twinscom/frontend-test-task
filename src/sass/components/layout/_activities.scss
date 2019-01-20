@@ -1,0 +1,47 @@
+.activities{
+  background: $white;
+  padding: 20px 0;
+
+
+  .list-title{
+    padding: 0 30px;
+    font-size: 18px;
+    font-weight: bold;
+
+    & > div{
+      padding-bottom: 10px;
+      border-bottom: 2px solid $light-grey;
+
+      &:not(:first-of-type):not(:last-of-type) {
+        text-align: center;
+      }
+    }
+  }
+
+  .sticky-table-head{
+    &.sticky{
+      padding-top: 10px;
+      background: $white;
+      @include box-shadow(0, 4px, 4px, rgba(#000, 0.2));
+    }
+  }
+
+  &-list{
+    padding: 0 30px;
+
+    .activity-item{
+      padding: 10px 0;
+      @include align-items(center);
+
+      &:not(:last-of-type){
+        border-bottom: 1px solid $light-grey;
+      }
+
+      & > div {
+        &:not(:first-of-type):not(:last-of-type) {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

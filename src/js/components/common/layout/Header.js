@@ -14,7 +14,7 @@ export default function Header(props){
           </div>
 
           <div className={"right-side"}>
-            <NavLink className="header-logo" to="/dashboard">
+            <NavLink className="header-logo" to="/">
               <span className={"icon logo"}/>
               {/*<span className={"icon logo-mob"}/>*/}
             </NavLink>

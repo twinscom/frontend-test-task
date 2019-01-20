@@ -17,11 +17,12 @@ body {
   font-size: $m-size;
   line-height: 1.6;
   margin: 0;
-  padding-top: 50px;
+  padding-top: 0;
 }
 
 button {
   cursor: pointer;
+  background: transparent;
 }
 
 button:disabled {

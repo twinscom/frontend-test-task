@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
-import DynamicImport from '../components/common/DynamicImport';
+import DynamicImport from '../components/common/libs/DynamicImport';
 
 import NotFoundPage from '../components/pages/NotFoundPage';
 

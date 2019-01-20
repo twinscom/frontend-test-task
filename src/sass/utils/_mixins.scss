@@ -334,3 +334,18 @@
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
+
+
+@mixin caret-down {
+  position: relative;
+  &:before {
+    content: "";
+    border-color: #676a6c;
+    border-top: $caret-width solid;
+    border-right: $caret-width solid transparent;
+    border-bottom: 0;
+    border-left: $caret-width solid transparent;
+    position: absolute;
+    top: 40%;
+  }
+}

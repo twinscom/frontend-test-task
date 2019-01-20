@@ -1,40 +1,44 @@
+.home-page{
+  .banner-wrap {
+    height: 50vh;
+
+    .lazy-wrap{
+      height: 100%;
+    }
+  }
+}
+
 .main-banner{
-  height: 80vh;
+  height: 100%;
   position: relative;
 
   &:after{
-    content: "";
+    content: attr(data-title);
     width: 100%;
-    height: 100%;
     z-index: 11;
     display: block;
     position: absolute;
-    top: 0;
-    background: $dark-grey;
-    @include opacity(0.1);
+    color: $white;
+    margin: 0 auto;
+    bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 50px;
   }
 
   &:before{
     content: "";
-    background: url("/webApp/bg/main-banner.jpg")50% 50% no-repeat;
-    background-size: cover;
     display: block;
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 10;
-    @include opacity(0.3);
   }
+}
 
-  .main-inner{
-    float: right;
-    color: $grey;
-    padding-top: 30px;
-    position: relative;
-    text-align: right;
-    font-size: 26px;
-    line-height: 50px;
-    width: 36%;
-    z-index: 15;
+.lazy-wrap.load{
+  .main-banner:before{
+    background: url("/webApp/bg/main-banner.png")50% 50% no-repeat;
+    background-size: cover;
   }
 }

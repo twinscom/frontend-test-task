@@ -46,9 +46,11 @@ export default function OurAdvantages(props) {
             const _item = list_items[item];
             return(
               <li key={index} className={"col-8 col-sm-6 col-xs-12"}>
-                <span className={"icon " + _item.icon}/>
-                <h4>{_item.title}</h4>
-                <p>{_item.text}</p>
+                <div className={"adv-wrap-item"}>
+                  <span className={"icon " + _item.icon}/>
+                  <h4>{_item.title}</h4>
+                  <p>{_item.text}</p>
+                </div>
               </li>
             )
           })

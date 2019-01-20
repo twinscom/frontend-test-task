@@ -2,8 +2,13 @@
 @import "utils/common";
 
 
+@import "components/form";
+@import "components/dropdown";
+
 @import "components/layout/header";
 @import "components/layout/main-banner";
 @import "components/layout/our-advantages";
 @import "components/layout/get-started";
+@import "components/layout/activities";
+@import "components/layout/common-pages";
 @import "components/layout/footer";
