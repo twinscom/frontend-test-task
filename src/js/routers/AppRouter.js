@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
+import { ToastContainer, toast } from 'react-toastify';
 import DynamicImport from '../components/common/libs/DynamicImport';
 
 import NotFoundPage from '../components/pages/NotFoundPage';
@@ -10,9 +11,24 @@ import NotFoundPage from '../components/pages/NotFoundPage';
 import Header from "../components/common/layout/Header";
 import Footer from "../components/common/layout/Footer";
 
+import { resetToastMsg } from "./../actions/toast";
+
 export const history = createHistory();
 
 class AppRouter extends Component{
+
+
+  componentWillReceiveProps(nextprops) {
+    const that = this;
+
+    if(nextprops.toast.text && this.props.toast.text !== nextprops.toast.text ){
+      toast[nextprops.toast.msgType](nextprops.toast.text, {
+        onClose: () => {
+          that.props.resetToastMsg();
+        }
+      });
+    }
+  }
 
   render(){
 
@@ -34,6 +50,8 @@ class AppRouter extends Component{
     return(
       <Router history={history}>
         <div id="inner-wrapper">
+
+          <ToastContainer className="toast-top-right toast-container" position={"top-right"}/>
 
           <Header />
 
@@ -73,8 +91,12 @@ class AppRouter extends Component{
   }
 }
 
-const mapStateToDispatch = (state) => ({});
+const mapStateToDispatch = (state) => ({
+  toast: state.toast
+});
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  resetToastMsg: () => dispatch(resetToastMsg())
+});
 
 export default connect(mapStateToDispatch, mapDispatchToProps)(AppRouter);

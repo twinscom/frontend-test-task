@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import axios from "axios/index";
 
 import {setHistoryActivities, setNewActivity, removeActivity} from "../../actions/activities";
+import { showToastMsg } from "../../actions/toast";
 
 import ActivitiesList from "../common/layout/ActivitiesList"
 import ActivitiesForm from "../common/layout/ActivitiesForm"
@@ -29,14 +30,17 @@ class OwnList extends Component{
     }
   };
 
-  onBtnClickHandler = () => {
+  onBtnClickHandler = (url) => {
     const that = this;
 
     axios
-      .get("http://www.boredapi.com/api/activity/")
+      .get(url)
       .then((response) => {
-        if(response.status === 200) {
-          that.props.setNewActivity(response.data)
+        if(!response.data.error) {
+          that.props.setNewActivity(response.data);
+          that.props.showToastMsg("a new event add", "success", "get_activities");
+        }else{
+          that.props.showToastMsg(response.data.error, "error", "get_activities");
         }
       })
       .catch((error) => {
@@ -58,8 +62,6 @@ class OwnList extends Component{
         <div className={"content-container"}>
 
           <ActivitiesForm sendRequest={this.onBtnClickHandler}/>
-
-
 
           {
             (!activities || !activities.length) &&
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setNewActivity: (activity) => dispatch(setNewActivity(activity)),
   setHistoryActivities: (activities) => dispatch(setHistoryActivities(activities)),
-  removeActivity: (activityId) => dispatch(removeActivity(activityId))
+  removeActivity: (activityId) => dispatch(removeActivity(activityId)),
+  showToastMsg: (text, msgType, id, options) => dispatch(showToastMsg(text, msgType, id, options))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OwnList);
