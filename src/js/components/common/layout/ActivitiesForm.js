@@ -9,15 +9,23 @@ export default function ActivitiesForm(props){
   const validator = new FormValidator([
     {
       field: 'price',
-      method: 'isNumeric',
+      method: 'isFloat',
       validWhen: true,
-      message: "Must be a positive number"
+      options: [{
+        min: 0,
+        max: 1
+      }],
+      message: "Must be a positive number, between 0 and 1. "
     },
     {
       field: 'accessibility',
-      method: 'isNumeric',
+      method: 'isFloat',
       validWhen: true,
-      message: "Must be a positive number."
+      options: [{
+        min: 0,
+        max: 1
+      }],
+      message: "Must be a positive number, between 0 and 1. "
     },
     {
       field: 'key',
@@ -95,6 +103,7 @@ export default function ActivitiesForm(props){
     for(let key in state){
       if(state[key] && state[key] !== "") query[key] = state[key];
     }
+    delete query["validation"];
 
     const url = ("http://www.boredapi.com/api/activity?" + JSON.stringify(query)).replace(",", "&").replace(/\"\:/g, "=").replace(/\{|\"|\}/g, "");
     props["sendRequest"](url);
@@ -104,7 +113,6 @@ export default function ActivitiesForm(props){
 
     const validation = validator.validate({[field]: value}, field, state.validation);
 
-    console.log(validation);
     dispatch({type: "VALIDATION", validation});
 
     if(!validation[field].isInvalid) {
@@ -113,6 +121,13 @@ export default function ActivitiesForm(props){
         value
       })
     }
+  }
+
+  function onDropdownChangeHandler(value){
+    dispatch({
+      type: ("change_type").toUpperCase(),
+      value
+    })
   }
 
   let types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"].map((key) => {
@@ -128,10 +143,7 @@ export default function ActivitiesForm(props){
     stateProp: "type"
   };
 
-  const theme = {
-    main: "mediumseagreen",
-    gap: "15px 15px 15px 0"
-  };
+  const theme = {main: "#80d066"};
 
   return (
     <form className={"default-form m20-0"} onSubmit={onSubmitHandler}>
@@ -141,7 +153,7 @@ export default function ActivitiesForm(props){
           <label className="control-label">Type: </label>
           <DropdownCard
             value={defType}
-            onChange={onChangeHandler}
+            onDropdownChangeHandler={onDropdownChangeHandler}
             dropdownArrItems={types}/>
         </div>
 
@@ -173,14 +185,13 @@ export default function ActivitiesForm(props){
       <div className="row mt-20">
         <div className="col-24">
           <Button
-            theme={theme}
             onClick={(e) => {
               e.preventDefault();
               props["sendRequest"]("http://www.boredapi.com/api/activity");
             }}>
             Random event
           </Button>
-          <Button type={"submit"}>Find event</Button>
+          <Button theme={theme} type={"submit"}>Find event</Button>
           {/*<Button variant={"default"}>Submit</Button>*/}
         </div>
       </div>

@@ -45,8 +45,8 @@ export default function Button(props){
 
   Buttons.defaultProps = {
     theme: {
-      main: "palevioletred",
-      gap: "15px"
+      main: "#61dafb",
+      gap: "15px 15px 15px 0"
     }
   };
 

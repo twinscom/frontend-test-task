@@ -16,6 +16,21 @@
         text-align: center;
       }
     }
+
+    .sorted{
+      white-space: nowrap;
+      cursor: pointer;
+
+      span{
+        @include triangle(top, 10px, 5px, $light-grey);
+        @include inline-block(middle);
+      }
+
+      &.active span{
+        @include triangle(top, 10px, 5px, rgba($dark-grey, 0.4));
+        @include inline-block(middle);
+      }
+    }
   }
 
   .sticky-table-head{
@@ -23,6 +38,13 @@
       padding-top: 10px;
       background: $white;
       @include box-shadow(0, 4px, 4px, rgba(#000, 0.2));
+
+      .list-title {
+        & > div {
+          padding-bottom: 5px;
+          border-bottom: none;
+        }
+      }
     }
   }
 
@@ -40,6 +62,107 @@
       & > div {
         &:not(:first-of-type):not(:last-of-type) {
           text-align: center;
+        }
+      }
+    }
+  }
+
+
+
+  @include breakpoint-unless-small-devices(){
+    .activity-item, .list-title {
+
+      .title {
+        @include flex(0 0 32%);
+      }
+
+      .accessibility {
+        @include flex(0 0 16%);
+      }
+
+      .participants {
+        @include flex(0 0 16%);
+      }
+
+      .price {
+        @include flex(0 0 10%);
+      }
+
+      .type {
+        @include flex(0 0 16%);
+      }
+
+      .options {
+        @include flex(0 0 10%);
+      }
+    }
+  }
+}
+
+main .create-list-page .activities{
+
+  @include breakpoint-small-devices() {
+    .activity-item, .list-title {
+      font-size: 14px;
+      .title {
+        @include flex(0 0 65%);
+        border-bottom: none;
+        @include order(0);
+      }
+
+      .accessibility {
+        @include flex(0 0 36%);
+        text-align: left;
+        @include order(2);
+        max-width: 36%;
+      }
+
+      .participants {
+        @include flex(0 0 36%);
+        text-align: left;
+        @include order(3);
+        max-width: 36%;
+      }
+
+      .price {
+        @include flex(0 0 18%);
+        text-align: left;
+        @include order(4);
+        max-width: 18%;
+      }
+
+      .type {
+        @include flex(0 0 35%);
+        text-align: right;
+        border: none;
+        @include order(1);
+      }
+
+      .options {
+        @include flex(0 0 10%);
+        text-align: right;
+        @include order(5);
+        max-width: 10%;
+
+        .remove-icon{
+          max-width: 40px;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @include breakpoint-extra-small(){
+    .sorted{
+      span{
+        display: none;
+      }
+
+      &.active{
+        text-decoration: underline;
+
+        span{
+          display: none;
         }
       }
     }

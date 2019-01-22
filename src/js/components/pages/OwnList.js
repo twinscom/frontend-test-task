@@ -58,15 +58,15 @@ class OwnList extends Component{
     // console.log(activities);
 
     return (
-      <div className={"create-list-page"}>
+      <div className={"create-list-page page-content"}>
         <div className={"content-container"}>
 
           <ActivitiesForm sendRequest={this.onBtnClickHandler}/>
 
           {
             (!activities || !activities.length) &&
-            <div>
-              lets create list.
+            <div className={"content-block"}>
+              Lets create your Bucket List.
             </div>
           }
 

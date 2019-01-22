@@ -5,6 +5,7 @@ import { StickyContainer, Sticky } from "react-sticky";
 export default function ActivitiesList(props){
 
   const [activitiesArr, setActivitiesArr] = useState(props.activities.all);
+  const [sortActivity, setSortActivity] = useState("");
 
   useEffect(() => {
     setActivitiesArr(props.activities.all);
@@ -17,6 +18,7 @@ export default function ActivitiesList(props){
       return 0;
     });
     setActivitiesArr(sortedActivityArr);
+    setSortActivity(type)
   }
 
   return (
@@ -30,20 +32,20 @@ export default function ActivitiesList(props){
             return (
               <div className={"sticky-table-head" + (isSticky ? " sticky" : "")} style={style}>
                 <div className={"list-title row"}>
-                  <div className={"title col-all-4"}>Title</div>
+                  <div className={"title"}>Title</div>
 
-                  <div className={"accessibility col-all-2"}
-                       onClick={() => handleSortActivities("accessibility")}>Accessibility</div>
+                  <div className={"sorted accessibility " + (sortActivity === "accessibility" ? "active" : "")}
+                       onClick={() => handleSortActivities("accessibility")}>Accessibility <span/></div>
 
-                  <div className={"participants col-all-2"}
-                       onClick={() => handleSortActivities("participants")}>Participants</div>
+                  <div className={"sorted participants " + (sortActivity === "participants" ? "active" : "")}
+                       onClick={() => handleSortActivities("participants")}>Participants <span/></div>
 
-                  <div className={"price col-all-1"}
-                       onClick={() => handleSortActivities("price")}>Price</div>
+                  <div className={"sorted price " + (sortActivity === "price" ? "active" : "")}
+                       onClick={() => handleSortActivities("price")}>Price <span/></div>
 
-                  <div className={"type col-all-2"}
+                  <div className={"type"}
                        onClick={() => handleSortActivities("type")}>Type</div>
-                  <div className={"type col-all-1"}/>
+                  <div className={"options"}/>
                 </div>
               </div>
             );
@@ -57,17 +59,17 @@ export default function ActivitiesList(props){
 
               return (
                 <li key={i} className={"activity-item row"}>
-                  <div className={"title col-all-4"}>{_activity.activity}</div>
+                  <div className={"title "}>{_activity.activity}</div>
 
-                  <div className={"accessibility col-all-2"}>{_activity["accessibility"]}</div>
+                  <div className={"accessibility"}>{_activity["accessibility"]}</div>
 
-                  <div className={"participants col-all-2"}>{_activity["participants"]}</div>
+                  <div className={"participants"}>{_activity["participants"]}</div>
 
-                  <div className={"price col-all-1"}>{_activity["price"]}</div>
+                  <div className={"price"}>{_activity["price"]}</div>
 
-                  <div className={"type col-all-2"}>{_activity["type"]}</div>
+                  <div className={"type"}>{_activity["type"]}</div>
 
-                  <div className={"options col-all-1"}>
+                  <div className={"options"}>
                     <span className={"remove-icon"} onClick={() => props["removeHandler"](_activity.key)}/>
                   </div>
                 </li>

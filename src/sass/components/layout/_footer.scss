@@ -1,11 +1,22 @@
 .footer{
 
-  .app-icon, a{
+  a{
     @include inline-block(middle);
+    color: $dark-grey;
+    font-style: italic;
+    font-size: 13px;
+    text-decoration: underline;
   }
 
   .app-icon{
+    @include inline-block(middle);
     margin-left: 10px;
     @include calc("width", "50% - 12px");
+  }
+
+  @include breakpoint-extra-small(){
+    ul li{
+      text-align: center;
+    }
   }
 }

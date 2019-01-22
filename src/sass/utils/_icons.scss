@@ -29,6 +29,14 @@ $logos: logo, logo-mob;
   }
 }
 
+$menu: menu-icon, close-white;
+.icon{
+  @each $i in $menu{
+    &.#{$i}{
+      @include common-icon($i);
+    }
+  }
+}
 .remove-icon{
   @include common-icon(close);
 }

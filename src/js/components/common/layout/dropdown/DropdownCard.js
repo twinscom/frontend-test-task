@@ -61,18 +61,15 @@ export default class DropdownCard extends Component{
         }
         this.closeMenu();
 
-        if(this.props["ownOnClickHandler"]){
-            this.props["ownOnClickHandler"](item);
+        if(this.props["onDropdownChangeHandler"]){
+            this.props["onDropdownChangeHandler"](item.value);
         }
     };
 
     render(){
 
-        const BtnInnerComponent = this.props["btnInnerComponent"],
-            DropdownInnerComponent = this.props["dropdownInnerComponent"];
-
         return (
-            <div className={this.props["ownClassName"] + " dropdown-wrap"}>
+            <div className={"dropdown-wrap"}>
                 <button onClick={this.showBtnHandler} className={"btn dropdown-btn"}>
                     <span className={"dropdown-value-name"}>{this.state.value.name}</span>
                     <span className="caret"/>

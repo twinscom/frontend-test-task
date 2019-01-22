@@ -51,7 +51,7 @@ class AppRouter extends Component{
       <Router history={history}>
         <div id="inner-wrapper">
 
-          <ToastContainer className="toast-top-right toast-container" position={"top-right"}/>
+          <ToastContainer className="toast-top-right toast-container" position={"top-right"} autoClose={1600}/>
 
           <Header />
 

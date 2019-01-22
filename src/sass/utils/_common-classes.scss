@@ -33,6 +33,12 @@ body{
   position: relative;
 }
 
+.content-block{
+  padding: 20px;
+  background: #fff;
+  border: 1px solid $border-clr;
+}
+
 a{
   text-decoration: none;
 }
@@ -79,4 +85,10 @@ a{
 
 .txt-center{
   text-align: center;
+}
+
+@include breakpoint-extra-small(){
+  .create-list-page .content-container{
+    padding: 0 5px;
+  }
 }

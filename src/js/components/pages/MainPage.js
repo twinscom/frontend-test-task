@@ -8,7 +8,7 @@ import LazyLoad from "../common/libs/LazyLoad";
 
 export default function MainPage(props){
   return (
-    <div className={"home-page"}>
+    <div className={"home-page page-content"}>
 
       <MainBanner/>
 
