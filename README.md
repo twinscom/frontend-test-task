@@ -23,5 +23,5 @@ Create a useful app using [The Bored API](https://www.boredapi.com/).
 
 ### Technologies
 
-- Use React with Hooks
-- Use styled-components
+- Use React with Hooks (and don't use class components)
+- Use styled-components (and don't use separate files for styles)
