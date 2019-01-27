@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, {useState, useEffect, useReducer, useCallback} from 'react';
+import qs from "qs";
 import DropdownCard from "./dropdown/DropdownCard";
 import FormValidator from "../libs/FormValidator";
+import activitiesFormReducer from "../../../reducers/local-reducers/activitiesForm"
 
 import Button from "./styled-components/Button";
+import { showToastMsg } from "../../../actions/toast";
+import { useDispatch } from "redux-react-hook";
 
-export default function ActivitiesForm(props){
+export default function ActivitiesForm({sendRequest}){
 
   const validator = new FormValidator([
     {
@@ -47,66 +51,36 @@ export default function ActivitiesForm(props){
     },
   ]);
 
-  const [state, dispatch] = useReducer(
-    (state, action) => {
-      switch (action.type) {
-        case "CHANGE_TYPE":
-          return {
-            ...state,
-            type: action.value
-          };
+  const initialState = {
+    type: null,
+    price: null,
+    key: null,
+    accessibility: null,
+    validation: validator.valid()
+  };
 
-        case "CHANGE_PRICE":
-          return {
-            ...state,
-            price: action.value
-          };
+  const [state, dispatch] = useReducer(activitiesFormReducer, initialState);
 
-        case "CHANGE_KEY":
-          return {
-            ...state,
-            key: action.value
-          };
-
-        case "CHANGE_ACCESSIBILITY":
-          return {
-            ...state,
-            accessibility: action.value
-          };
-
-        case "VALIDATION":
-          return {
-            ...state,
-            validation: action.validation
-          };
-
-        default:
-          return state;
-      }
-    },
-    {
-      type: null,
-      price: null,
-      key: null,
-      accessibility: null,
-      validation: validator.valid()
-    }
-  );
-
-  useEffect(() => {
-    // console.log("create/update", state);
-  });
+  const _dispatch = useDispatch();
+  const _showToastMsg = useCallback((text, msgType) => _dispatch(showToastMsg(text, msgType)));
 
   function onSubmitHandler(e){
     e.preventDefault();
     const query = {};
     for(let key in state){
-      if(state[key] && state[key] !== "") query[key] = state[key];
+      if(state.hasOwnProperty(key) && state[key] ){
+        query[key] = state[key]
+      }
     }
-    delete query["validation"];
+    delete query.validation;
 
-    const url = ("http://www.boredapi.com/api/activity?" + JSON.stringify(query)).replace(",", "&").replace(/\"\:/g, "=").replace(/\{|\"|\}/g, "");
-    props["sendRequest"](url);
+    const url = ("http://www.boredapi.com/api/activity?" + qs.stringify(query));
+
+    if(!qs.stringify(query).length){
+      _showToastMsg("You should to fix an error!", "error")
+    }else{
+      sendRequest(url);
+    }
   }
 
   function onChangeHandler(field, value){
@@ -125,12 +99,12 @@ export default function ActivitiesForm(props){
 
   function onDropdownChangeHandler(value){
     dispatch({
-      type: ("change_type").toUpperCase(),
+      type: "CHANGE_TYPE",
       value
     })
   }
 
-  let types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"].map((key) => {
+  const types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"].map((key) => {
     return {
       name: key,
       value: key,
@@ -141,12 +115,11 @@ export default function ActivitiesForm(props){
     name: "Chose type",
     value: null,
     stateProp: "type"
-  };
-
-  const theme = {main: "#80d066"};
+  },
+  theme = {main: "#80d066"};
 
   return (
-    <form className={"default-form m20-0"} onSubmit={onSubmitHandler}>
+    <form className="default-form m20-0" onSubmit={onSubmitHandler}>
 
       <div className="row ">
         <div className="col-6 col-sm-6 form-group">
@@ -159,15 +132,15 @@ export default function ActivitiesForm(props){
 
         <div className="col-6 col-sm-6 form-group">
           <div><label className="control-label">Price: </label></div>
-          <input className={"form-control " + (state.validation.price["isInvalid"] && "has-error")}
-                 type="text" name="price" defaultValue={state.price ? state.price : ""}
+          <input className={"form-control " + (state.validation.price.isInvalid && "has-error")}
+                 type="text" name="price" defaultValue={""}
                  onChange={(e) => onChangeHandler("price", e.target.value)}/>
           <span className={"error-block"}>{state.validation.price.message}</span>
         </div>
 
         <div className="col-6 col-sm-6 form-group">
           <div><label className="control-label">Accessibility: </label></div>
-          <input className={"form-control "  + (state.validation.accessibility["isInvalid"] && "has-error")}
+          <input className={"form-control "  + (state.validation.accessibility.isInvalid && "has-error")}
                  type="text" name="accessibility" defaultValue={""}
                  onChange={(e) => onChangeHandler("accessibility", e.target.value)}/>
           <span className={"error-block"}>{state.validation.accessibility.message}</span>
@@ -175,7 +148,7 @@ export default function ActivitiesForm(props){
 
         <div className="col-6 col-sm-6 form-group">
           <div><label className="control-label">Activity id: </label></div>
-          <input className={"form-control "  + (state.validation.key["isInvalid"] && "has-error")}
+          <input className={"form-control "  + (state.validation.key.isInvalid && "has-error")}
                  type="text" name="key" defaultValue={""}
                  onChange={(e) => onChangeHandler("key", e.target.value)}/>
           <span className={"error-block"}>{state.validation.key.message}</span>
@@ -187,7 +160,7 @@ export default function ActivitiesForm(props){
           <Button
             onClick={(e) => {
               e.preventDefault();
-              props["sendRequest"]("http://www.boredapi.com/api/activity");
+              sendRequest("http://www.boredapi.com/api/activity");
             }}>
             Random event
           </Button>

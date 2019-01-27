@@ -2,14 +2,14 @@ import React, { useState, useEffect} from 'react';
 import { StickyContainer, Sticky } from "react-sticky";
 
 
-export default function ActivitiesList(props){
+export default function ActivitiesList({activities, removeHandler}){
 
-  const [activitiesArr, setActivitiesArr] = useState(props.activities.all);
+  const [activitiesArr, setActivitiesArr] = useState(activities.all); //it's used by handleSortActivities
   const [sortActivity, setSortActivity] = useState("");
 
   useEffect(() => {
-    setActivitiesArr(props.activities.all);
-  }, [props]);
+    setActivitiesArr(activities.all);
+  }, [activities]);
   
   function handleSortActivities(type) {
     const sortedActivityArr = activitiesArr.sort((a, b) => {
@@ -55,22 +55,20 @@ export default function ActivitiesList(props){
         <ul className={"activities-list"}>
           {
             activitiesArr.map((activity, i) => {
-              const _activity = activity;
-
               return (
                 <li key={i} className={"activity-item row"}>
-                  <div className={"title "}>{_activity.activity}</div>
+                  <div className={"title "}>{activity.activity}</div>
 
-                  <div className={"accessibility"}>{_activity["accessibility"]}</div>
+                  <div className={"accessibility"}>{activity.accessibility}</div>
 
-                  <div className={"participants"}>{_activity["participants"]}</div>
+                  <div className={"participants"}>{activity.participants}</div>
 
-                  <div className={"price"}>{_activity["price"]}</div>
+                  <div className={"price"}>{activity.price}</div>
 
-                  <div className={"type"}>{_activity["type"]}</div>
+                  <div className={"type"}>{activity.type}</div>
 
                   <div className={"options"}>
-                    <span className={"remove-icon"} onClick={() => props["removeHandler"](_activity.key)}/>
+                    <span className={"remove-icon"} onClick={() => removeHandler(activity.key)}/>
                   </div>
                 </li>
               )

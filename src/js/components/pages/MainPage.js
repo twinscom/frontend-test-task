@@ -6,7 +6,7 @@ import NavLink from "react-router-dom/es/NavLink";
 
 import LazyLoad from "../common/libs/LazyLoad";
 
-export default function MainPage(props){
+export default function MainPage(){
   return (
     <div className={"home-page page-content"}>
 

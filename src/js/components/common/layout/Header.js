@@ -1,38 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from "react-router-dom";
+import { useDispatch, useMappedState } from "redux-react-hook";
+import { setMenuState } from "../../../actions/app";
 
+const mapState = (state) => ({
+  _app: state.app
+});
 
-export default function Header(props){
+export default function Header(){
 
+  const { _app } = useMappedState(mapState);
   const [ isOpen, setIsOpen ] = useState(false);
-  const small = useMedia("(max-width: 767px)");
+  const [ small, setSmall ] = useState(_app.mediaSize === "mobile");
+
+  const dispatch = useDispatch();
+  const _setMenuState = useCallback((menuIsOpen) => dispatch(setMenuState(menuIsOpen)));
 
   useEffect(() => {
-    const content = document.querySelector('.page-content');
+    const isSmall = _app.mediaSize === "mobile";
+    setSmall(isSmall);
 
-    if(content){
-
-      if(isOpen && small){
-        setTimeout(() => {
-          content.style.display = "none"
-        }, 1000);
-      }else{
-        content.style.display = "block";
-      }
-
+    if(!isSmall){
+      _setMenuState(false);
+      setIsOpen(false)
+    }else{
+      setTimeout(() => {
+        _setMenuState(isOpen);
+      }, (isOpen ? 700 : 300))
     }
-  });
+  }, [_app.mediaSize, _app.menuIsOpen, isOpen]);
 
   function onMenuClickHandler(){
     setIsOpen(!isOpen);
-  };
+  }
 
   function onLinkClickHandler(){
     setIsOpen(false);
-  };
+  }
 
   return (
-    <header className={"header " + (small ? "mobile" : "")}>
+    <header className={"header " + _app.mediaSize}>
       <div className="content-container">
         <div className="header-content">
 
@@ -74,20 +81,4 @@ export default function Header(props){
       </div>
     </header>
   );
-}
-
-function useMedia(query){
-  const [matches, setMatches] = useState(window.matchMedia(query).matches);
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) setMatches(media.matches);
-
-    const listener = () => setMatches(media.matches);
-    window.addEventListener("resize", listener);
-    return () => window.removeEventListener("resize", listener);
-
-  }, [query]);
-
-  return matches;
 }

@@ -69,7 +69,7 @@ $cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
         z-index: 100;
         width: 100%;
         background: $dark-blue;
-        @include transition(all, 0.5s, ease-in);
+        @include transition(all, 0.4s, ease-in);
         transition-delay: 0.25s;
 
         .menu {

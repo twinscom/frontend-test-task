@@ -2,15 +2,15 @@ import './../sass/styles.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { StoreContext } from 'redux-react-hook';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
 const jsx = (
-  <Provider store={store}>
+  <StoreContext.Provider value={store}>
     <AppRouter />
-  </Provider>
+  </StoreContext.Provider>
 );
 
 ReactDOM.render(jsx, document.getElementById('app'));

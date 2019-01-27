@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function DropdownCardItem(props){
+export default function DropdownCardItem({item, onClickHandler}){
     return (
         <div className={"dropdown-item"}
-             onClick={() => props.onClickHandler(props.item)}>
-            { props.item.name }
+             onClick={(e) => onClickHandler(e, item)}>
+            { item.name }
         </div>
     )
 }

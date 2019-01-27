@@ -12,7 +12,7 @@ module.exports = (env) => {
   return {
 
     entry: {
-        app: [/*'babel-polyfill', */'./src/js/app.js']
+        app: ['babel-polyfill', './src/js/app.js']
     },
     output: {
       path: path.join(__dirname, 'public', 'dist'),

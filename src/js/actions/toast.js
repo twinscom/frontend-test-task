@@ -1,10 +1,8 @@
-export const showToastMsg = (text, msgType, id, options) => {
+export const showToastMsg = (text, msgType) => {
         return{
             type: "SHOW_TOAST_MSG",
             text,
             msgType,
-            id,
-            options
         }
     },
     resetToastMsg = () => {

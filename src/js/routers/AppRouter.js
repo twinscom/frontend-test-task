@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import {connect} from "react-redux";
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
 import { ToastContainer, toast } from 'react-toastify';
+import Media from 'react-media';
+import dynamic from 'next/dynamic'
 import DynamicImport from '../components/common/libs/DynamicImport';
 
 import NotFoundPage from '../components/pages/NotFoundPage';
@@ -12,91 +13,101 @@ import Header from "../components/common/layout/Header";
 import Footer from "../components/common/layout/Footer";
 
 import { resetToastMsg } from "./../actions/toast";
+import { useDispatch, useMappedState } from "redux-react-hook";
+import { setMediaSize } from "../actions/app";
 
 export const history = createHistory();
 
-class AppRouter extends Component{
+const mapState = (state) => ({
+  _toast: state.toast,
+  _app: state.app
+});
 
+export default function AppRouter(){
 
-  componentWillReceiveProps(nextprops) {
-    const that = this;
+  const { _toast, _app } = useMappedState(mapState);
 
-    if(nextprops.toast.text && this.props.toast.text !== nextprops.toast.text ){
-      toast[nextprops.toast.msgType](nextprops.toast.text, {
+  const dispatch = useDispatch();
+  const _resetToastMsg = useCallback(() => dispatch(resetToastMsg()));
+  const _setMediaSize = useCallback((mediaSize) => dispatch(setMediaSize(mediaSize)));
+
+  useEffect(() => {
+    if (_toast.text){
+      toast[_toast.msgType](_toast.text, {
         onClose: () => {
-          that.props.resetToastMsg();
+          _resetToastMsg();
         }
       });
     }
-  }
+  });
 
-  render(){
+  const dynamicRoutesConfig = [
+    {
+      path: "/",
+      pathToComponent: "pages/MainPage"
+    },
+    {
+      path: "/main",
+      pathToComponent: "pages/MainPage"
+    },
+    {
+      path: "/own_list",
+      pathToComponent: "pages/OwnList"
+    }
+  ];
 
-    const dynamicRoutesConfig = [
-      {
-        path: "/",
-        pathToComponent: "pages/MainPage"
-      },
-      {
-        path: "/main",
-        pathToComponent: "pages/MainPage"
-      },
-      {
-        path: "/own_list",
-        pathToComponent: "pages/OwnList"
-      }
-    ];
+  return(
+    <Router history={history}>
+      <div id={"inner-wrapper"} className={_app.mediaSize + (_app.menuIsOpen ? " menu-open" : "")}>
 
-    return(
-      <Router history={history}>
-        <div id="inner-wrapper">
-
-          <ToastContainer className="toast-top-right toast-container" position={"top-right"} autoClose={1600}/>
-
-          <Header />
-
-          <main className={"main"}>
-          <Switch>
-            {
-              dynamicRoutesConfig.map((route, i) => (
-                <Route
-                  key={i}
-                  path={route.path}
-                  component={(props) => {
-                    return(
-                      <DynamicImport load={() => import(`../components/${route.pathToComponent}`)}>
-                        {
-                          (Component) => {
-                            return (
-                              Component === null ? null : <Component {...props}/>
-                            )
-                          }
-                        }
-                      </DynamicImport>
-                    )
-                  }}
-                  exact={true}
-                />
-              ))
+        <Media
+          query="(max-width: 767px)"
+          onChange={matches => {
+            if(matches){
+              _setMediaSize("mobile");
+            }else{
+              _setMediaSize("desktop");
             }
+          }}/>
 
-            <Route component={NotFoundPage} />
-          </Switch>
-          </main>
+        <ToastContainer className="toast-top-right toast-container" position={"top-right"} autoClose={1600}/>
 
-          <Footer/>
-        </div>
-      </Router>
-    )
-  }
+        <Header />
+
+        <main className={"main"}>
+        <Switch>
+          {
+            dynamicRoutesConfig.map((route, i) => (
+              <Route
+                key={i}
+                path={route.path}
+                component={(props) => {
+
+                  const DynamicComponent = dynamic( () => import(`../components/${route.pathToComponent}`))
+                  return <DynamicComponent />;
+                  // return(
+                  //   <DynamicImport load={() => import(`../components/${route.pathToComponent}`)}>
+                  //     {
+                  //       (Component) => {
+                  //         return (
+                  //           Component === null ? null : <Component {...props}/>
+                  //         )
+                  //       }
+                  //     }
+                  //   </DynamicImport>
+                  // )
+                }}
+                exact={true}
+              />
+            ))
+          }
+
+          <Route component={NotFoundPage} />
+        </Switch>
+        </main>
+
+        <Footer/>
+      </div>
+    </Router>
+  )
 }
-
-const mapStateToDispatch = (state) => ({
-  toast: state.toast
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetToastMsg: () => dispatch(resetToastMsg())
-});
-
-export default connect(mapStateToDispatch, mapDispatchToProps)(AppRouter);
