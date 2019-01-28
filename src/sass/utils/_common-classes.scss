@@ -1,0 +1,104 @@
+//sticky footer
+html, body, #app, #inner-wrapper{
+  height: 100%;
+}
+
+#inner-wrapper{
+  @include flexbox();
+  @include flex-direction(column);
+
+  main, header{
+    @include flex(1 0 auto);
+  }
+
+  footer{
+    @include flex-shrink(0)
+  }
+
+  &.mobile{
+
+    &.menu-open{
+      .main{
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}
+//end sticky footer
+
+body{
+  background: $light-grey;
+
+  footer{
+    background: $light-bue;
+    padding: 40px 0;
+  }
+}
+
+.content-container {
+  margin: 0 auto;
+  padding: 0 $m-size;
+  max-width: 960px;
+  position: relative;
+}
+
+.content-block{
+  padding: 20px;
+  background: #fff;
+  border: 1px solid $border-clr;
+}
+
+a{
+  text-decoration: none;
+}
+
+.txt-block{
+  .title{
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.two-col-wrap{
+  @include flexbox();
+  @include justify-content(center);
+
+  .two-col-side{
+    @include flex(0 0 50%);
+  }
+}
+
+.w-100{
+  width: 100%!important;
+}
+
+.m40-0{
+  margin: 40px 0;
+}
+
+.m20-0{
+  margin: 40px 0;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+
+.m-r-10{
+  margin-right: 10px;
+}
+
+.p40-0{
+  padding: 40px 0;
+}
+
+.txt-center{
+  text-align: center;
+}
+
+@include breakpoint-extra-small(){
+  .create-list-page .content-container{
+    padding: 0 5px;
+  }
+}

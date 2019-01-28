@@ -1,0 +1,46 @@
+
+$advantages: beautiful, easy, social, community, privacy, timeline;
+
+.our-advantages ul{
+  .icon{
+    @each $adv in $advantages{
+      &.#{$adv}{
+        @include common-icon($adv);
+      }
+    }
+  }
+}
+
+$apps: appstore, playstore;
+.app-icon{
+  @each $app in $apps{
+    &.#{$app}{
+      @include common-icon($app);
+    }
+  }
+}
+
+$logos: logo, logo-mob;
+.icon{
+  @each $logo in $logos{
+    &.#{$logo}{
+      @include common-icon($logo);
+    }
+  }
+}
+
+$menu: menu-icon, close-white;
+.icon{
+  @each $i in $menu{
+    &.#{$i}{
+      @include common-icon($i);
+    }
+  }
+}
+.remove-icon{
+  @include common-icon(close);
+}
+
+.bucket-list{
+  @include common-icon(bucket-list);
+}

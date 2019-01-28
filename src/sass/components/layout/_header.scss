@@ -1,0 +1,160 @@
+.header {
+  background: $dark-blue;
+  max-height: 100px;
+
+  a{
+    color: $off-white;
+    @include inline-block(middle);
+  }
+
+  .header-content{
+    height: 100px;
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    .left-side{
+      @include flex(0 0 50%);
+
+      .icon{
+        width: 44px;
+        @include inline-block(middle);
+      }
+    }
+
+    .right-side{
+      @include flex(0 0 50%);
+      text-align: right;
+    }
+
+    .menu-item{
+      margin-right: 30px;
+      font-size: 26px;
+    }
+  }
+
+  .header-logo{
+    display: inline-block;
+
+    &.logo{
+      width: 70%;
+    }
+
+    &.logo-mob{
+      width: 80px;
+    }
+
+  }
+}
+
+$menuItems: 2;
+$cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
+
+@include breakpoint-small-devices(){
+  .header {
+
+    .app-icon{
+      @include inline-block(middle);
+      margin-left: 20px;
+      @include calc("width", "35% - 20px");
+    }
+
+    &.mobile {
+      z-index: 101;
+      .mobile-content{
+        overflow: hidden;
+        height: 0;
+        left: 0;
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        background: $dark-blue;
+        @include transition(all, 0.4s, ease-in);
+        transition-delay: 0.25s;
+
+        .menu {
+          position: relative;
+          display: block;
+          padding: 0 48px 0;
+          list-style: none;
+
+          .menu-item {
+            border-bottom: 1px solid $white;
+            margin-top: 5px;
+            @include transform(scale(1.15) translateY(-30px));
+            @include opacity(0);
+            @include transition(all, 0.6s $cubic);
+
+            @for $i from 1 through $menuItems {
+              &:nth-child(#{$i}) {
+                transition-delay: #{0.56 - ($i * 0.07)}s;
+              }
+            }
+
+            a {
+              display: block;
+              position: relative;
+              color: $white;
+              text-decoration: none;
+              font-size: 22px;
+              line-height: 2.35;
+              font-weight: 200;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .menu-open{
+        height: 100%;
+
+        .menu {
+          .menu-item {
+            @include transform(scale(1) translateY(0px));
+            @include opacity(1);
+
+            @for $i from 1 through $menuItems {
+              &:nth-child(#{$i}) {
+                transition-delay: #{0.07 * $i+0.2}s;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+@include breakpoint-extra-small(){
+  .header {
+
+    .menu{
+      margin-bottom: 70px;
+    }
+
+    .app-icon{
+      @include calc("width", "60%");
+      margin-left: 32px;
+    }
+
+    .header-content {
+      height: 60px;
+    }
+
+    .header-content {
+      .left-side {
+        .icon {
+          width: 26px;
+        }
+      }
+    }
+
+    .header-logo{
+
+      &.logo-mob{
+        width: 46px;
+      }
+    }
+  }
+}

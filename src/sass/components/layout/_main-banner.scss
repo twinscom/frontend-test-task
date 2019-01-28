@@ -1,0 +1,44 @@
+.home-page{
+  .banner-wrap {
+    height: 50vh;
+
+    .lazy-wrap{
+      height: 100%;
+    }
+  }
+}
+
+.main-banner{
+  height: 100%;
+  position: relative;
+
+  &:after{
+    content: attr(data-title);
+    width: 100%;
+    z-index: 11;
+    display: block;
+    position: absolute;
+    color: $white;
+    margin: 0 auto;
+    bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 50px;
+  }
+
+  &:before{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
+
+.lazy-wrap.load{
+  .main-banner:before{
+    background: url("/webApp/bg/main-banner.png")50% 50% no-repeat;
+    background-size: cover;
+  }
+}
