@@ -6,10 +6,6 @@ export default function ActivitiesList({activities, removeHandler}){
 
   const [sortActivity, setSortActivity] = useState("type");
 
-  function handleSortActivities(type) {
-    setSortActivity(type);
-  }
-
   return (
     <div className={"activities m20-0"}>
 
@@ -24,16 +20,16 @@ export default function ActivitiesList({activities, removeHandler}){
                   <div className={"sorted title " + (sortActivity === "title" ? "active" : "")}>Title</div>
 
                   <div className={"sorted accessibility " + (sortActivity === "accessibility" ? "active" : "")}
-                       onClick={() => handleSortActivities("accessibility")}>Accessibility <span/></div>
+                       onClick={() => setSortActivity("accessibility")}>Accessibility <span/></div>
 
                   <div className={"sorted participants " + (sortActivity === "participants" ? "active" : "")}
-                       onClick={() => handleSortActivities("participants")}>Participants <span/></div>
+                       onClick={() => setSortActivity("participants")}>Participants <span/></div>
 
                   <div className={"sorted price " + (sortActivity === "price" ? "active" : "")}
-                       onClick={() => handleSortActivities("price")}>Price <span/></div>
+                       onClick={() => setSortActivity("price")}>Price <span/></div>
 
                   <div className={"sorted type " + (sortActivity === "type" ? "active" : "")}
-                       onClick={() => handleSortActivities("type")}>Type <span/></div>
+                       onClick={() => setSortActivity("type")}>Type <span/></div>
                   <div className={"options"}/>
                 </div>
               </div>

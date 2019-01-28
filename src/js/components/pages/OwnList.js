@@ -55,12 +55,8 @@ export default function OwnList(){
         }
       })
       .catch((error) => {
-        console.log(error)
+        _showToastMsg(error.message, "error")
       })
-  }
-
-  function onActivityRemoveHandler(activityId){
-    _removeActivity(activityId);
   }
 
   return (
@@ -80,7 +76,7 @@ export default function OwnList(){
           activities.all.length > 0 &&
           <ActivitiesList
             activities={activities}
-            removeHandler={onActivityRemoveHandler}
+            removeHandler={_removeActivity}
           />
         }
       </div>
