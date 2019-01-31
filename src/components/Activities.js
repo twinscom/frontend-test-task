@@ -1,100 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Settings from './commonData';
 
 const ActivityWrap = styled.div`
-border-radius: 20px;
-padding: 20px;
-width: 50%;
-margin: 0 auto;
-div{
-    margin-bottom: 10px;
-}
+    border-radius: 20px;
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+    div{
+        margin-bottom: 10px;
+    }
 `
 const ActivityHeader = styled.h3`
-text-align: center;
-font-size: 24px;
-font-weight: 700;
-line-height: 30px;
-margin-bottom: 5px;
-`
-const Preloader = styled.div`
-display: flex;
-justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 5px;
 `
 const Participants = styled.div`
-display: flex;
-justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 `
 const Key = styled.div`
-display: flex;
-justify-content: flex-end;
-font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    margin-bottom: 30px;	
 `
 const Type = styled.div`
 
 `
 const PriceWrap = styled.div`
-text-align: center;
+    text-align: center;
+    margin-top: 40px;
 `
 const Price = styled.span`
-font-size: 24px;
+    font-size: 24px;
 `
+const Button = styled.button`
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #5BC0BE;
+    border: none;
+    color: #F4F4F8;
+    cursor: pointer;
+    transition: all .5s;
 
-function Activities(props) {
-    const [data, setData] = useState({});
-
-    function randomActivity() {
-        async function get() {
-            const result = await axios(
-                'http://www.boredapi.com/api/activity/'
-            );
-            setData(result.data);
-        }
-
-        useEffect(() => {
-            get(data);
-        }, []);
+    &:hover{
+        background-color: #0B132B;
     }
-    randomActivity();
+`
+const PreambulaText = styled.div`
+    line-height: 26px;
+    margin-bottom: 20px;
+`
+const PreambulaHeader = styled.h1`
+    font-size: 30px;
+    font-weight: 700;
+    margin: 40px 0;
+`
+// const Preambula = () => {
+//     return (
+//         // TODO Refactoring: make preambula to choose depending on the DATA obj
+//         <>
+//             <PreambulaHeader>WhattodoApp</PreambulaHeader>
+//             <PreambulaText>We'll help you! Just click the button and you'll see the possible variant for your vocation...</PreambulaText>
+//         </>
+//     )
+// }
 
-    const { activity, key, participants, price, type } = data;
+function Display() {
+    const settings = useContext(Settings);
+
+    // TODO make DATA obj global
+    const [data, setData] = useState({});
+    let [clickCount, setClickCount] = useState(0);
+
+    async function getRandomActivity() {
+        const result = await axios(
+            'http://www.boredapi.com/api/activity/'
+        );
+        setData(result.data);
+        setClickCount(clickCount + 1);
+    }
 
     if (Object.keys(data).length === 0) {
         return (
-            <Preloader>
-                <img src="img/25.gif" alt="Loading..." />
-            </Preloader>
+            <>
+                {/* TODO refactoring: remove duplicate code */}
+                <PreambulaHeader>WhattodoApp</PreambulaHeader>
+                <PreambulaText>Don't know what to do? We'll help you! Just click the button and you'll see the possible variant for your vocation...</PreambulaText>
+                <Button onClick={getRandomActivity}>Random</Button>
+            </>
         )
     } else {
         return (
             <>
-                <ActivityWrap style={{ backgroundColor: props.settings.colors.grey, color: props.settings.colors.white }}>
-                    <ActivityHeader>{activity}</ActivityHeader>
+                {/* TODO refactoring: remove duplicate code */}
+                <PreambulaHeader>WhattodoApp</PreambulaHeader>
+                <PreambulaText>Don't like that? Click... ;-)</PreambulaText>
+                <Button onClick={getRandomActivity} style={{ marginBottom: '20px' }}>Random</Button>
+
+
+                <ActivityWrap style={{ backgroundColor: settings.colors.grey, color: settings.colors.white }}>
+                    <ActivityHeader>{data.activity}</ActivityHeader>
                     <Key>
-                        id: {key}
+                        id: {data.key}
                     </Key>
                     <Type>
-                        <span>Activity type: <strong style={{ color: props.settings.colors.blue }}>{type}</strong></span>
+                        <span>Activity type: <strong style={{ color: settings.colors.blue }}>{data.type}</strong></span>
                     </Type>
                     <Participants>
-                        Participants: {participants}
-                    </Participants>                    
+                        Participants: {data.participants}
+                    </Participants>
                     <PriceWrap>
                         <Price>
-                            Price:&nbsp;
-                            <i style={price === 0 ? { textTransform: 'uppercase', color: props.settings.colors.yellow, fontWeight: 700 } : {}}>
-                                {price === 0 ? 'free' : `$${price}`}
+                            <i style={data.price === 0 ? { textTransform: 'uppercase', color: settings.colors.yellow, fontWeight: 700 } : {}}>
+                                {data.price === 0 ? `It's free!` : `Price: $${data.price}`}
                             </i>
                         </Price>
                     </PriceWrap>
-
                 </ActivityWrap>
-
-                {/* <button onClick={randomActivity}>Random</button> */}
             </>
         )
     }
 }
 
-export default Activities;
+export default Display;
