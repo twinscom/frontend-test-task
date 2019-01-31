@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Settings from './commonData';
+import Settings,{ Button } from './commonData';
 
 const ActivityWrap = styled.div`
     border-radius: 20px;
@@ -38,21 +38,6 @@ const PriceWrap = styled.div`
 `
 const Price = styled.span`
     font-size: 24px;
-`
-const Button = styled.button`
-    padding: 15px 40px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 16px;
-    background-color: #5BC0BE;
-    border: none;
-    color: #F4F4F8;
-    cursor: pointer;
-    transition: all .5s;
-
-    &:hover{
-        background-color: #0B132B;
-    }
 `
 const PreambulaText = styled.div`
     line-height: 26px;
