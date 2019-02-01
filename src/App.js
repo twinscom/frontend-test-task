@@ -6,7 +6,7 @@ import FilteredActivites from './components/filteredActivites';
 import GlobalStyle from './components/commonData';
 
 const Nav = styled.nav`
-	background-color: '#3F4045';
+	background-color: #3F4045;
 `
 const Container = styled.div`
 	width: 70%;
@@ -15,6 +15,7 @@ const Container = styled.div`
 `
 const Ul = styled.ul`
 	display: flex;
+	justify-content: center;
 `
 const Li = styled.li`
 	padding: 0 20px;
@@ -28,15 +29,19 @@ const Li = styled.li`
 		border-right: 1px dotted #F4F4F8;
 	}
 	a{
-		color: '#F4F4F8';
+		color: #F4F4F8;
 		transition: all .3s;
 		font-weight: 700;
 
 		&:hover{
-			color: '#5BC0BE';
+			color: #5BC0BE;
 		}
 	}
 `
+const Centered = styled.div`
+	text-align: center;
+`
+
 const App = () => (
 	<Router>
 		<>
@@ -55,8 +60,10 @@ const App = () => (
 			</Nav>
 			<main>
 				<Container>
-					<Route path="/" exact render={() => <Display />} />
-					<Route path="/filter/" component={FilteredActivites} />
+					<Centered>
+						<Route path="/" exact render={() => <Display />} />
+						<Route path="/filter/" component={FilteredActivites} />
+					</Centered>
 				</Container>
 			</main>
 		</>
