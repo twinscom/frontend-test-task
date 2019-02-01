@@ -1,32 +1,12 @@
 import React from 'react';
 import Display from './components/activities';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import FilteredActivites from './components/filteredActivites';
+import GlobalStyle from './components/commonData';
 
-const settings = {
-    colors: {
-        grey: '#3F4045',
-        blue: '#5BC0BE',
-        darkBlue: '#0B132B',
-        white: '#F4F4F8',
-        yellow: '#FED766'
-    },
-    font: `'Montserrat', sans-serif`
-}
-
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-  html, body {
-    font-family: ${settings.font};
-	color: ${settings.colors.grey};
-  }
-  strong{
-	font-weight: 700;
-	}
-`
 const Nav = styled.nav`
-	background-color: ${settings.colors.grey};
+	background-color: '#3F4045';
 `
 const Container = styled.div`
 	width: 70%;
@@ -48,12 +28,12 @@ const Li = styled.li`
 		border-right: 1px dotted #F4F4F8;
 	}
 	a{
-		color: ${settings.colors.white};
+		color: '#F4F4F8';
 		transition: all .3s;
 		font-weight: 700;
 
 		&:hover{
-			color: ${settings.colors.blue};
+			color: '#5BC0BE';
 		}
 	}
 `

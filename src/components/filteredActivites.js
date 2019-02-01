@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Button } from './commonData';
@@ -8,50 +8,63 @@ margin-bottom: 20px;
 `
 const QueryType = styled.div``
 
-const FiterContent = () => {
-    let [value, setValue] = useState('priceRange');
-    const queries = {
-        key: 'key',
-        type: 'type',
-        participants: 'participants',
-        price: 'price',
-        priceRange: {
-            minprice: 'minprice',
-            maxprice: 'maxprice'
-        },
-        accessibility: 'accessibility',
-        accessibilityRange: {
-            minaccessibility: 'minaccessibility',
-            maxaccessibility: 'maxaccessibility'
-        }
-    }
-    const [minPrice, setMinPrice] = useState();
-    const [maxPrice, setMaxPrice] = useState();
+function hideElem(elem) {
+    elem.classList.add('display-none');
+}
+
+const FilterContent = () => {
+    let [filterType, setfilterType] = useState('priceRange');
+    const [firstValue, setFirstValue] = useState(0);
+    const [secondValue, setSecondValue] = useState(0);
 
     function handleChange(e) {
-        const filter = e.target.value;
-        setValue(filter);
-        const allBlocks = document.querySelectorAll('.block'),
-            selectedBlock = document.querySelector('.' + filter);
+        setfilterType(e.target.value);
+        console.log(e.target.value);
 
-        allBlocks.forEach(block => {
-            if (block.style.display !== 'none') {
-                block.style.display = 'none';
-            }
-        });
-        selectedBlock.style.display = 'block';
+        const inputs = document.querySelectorAll('.queryBlock input');
+        console.log(inputs[1]);
+
+
+        if ((filterType !== 'priceRange') || (filterType !== 'accessibilityRange')) {
+            hideElem(inputs[1]);
+        }
+
+        // allBlocks.forEach(block => {
+        //     if (block.style.display !== 'none') {
+        //         block.style.display = 'none';
+        //     }
+        // });
+        // selectedBlock.style.display = 'block';
+    }
+    function handleSubmit(e) {
+        e.preventDefault();
+    }
+
+    const QueryTypeContent = () => {
+
+        return (
+            <div className="queryBlock">
+                <form onSubmit={handleSubmit}>
+                    <input type="text" value={firstValue} onChange={e => setFirstValue(e.target.value)} />
+                    <input type="text" value={secondValue} onChange={e => setSecondValue(e.target.value)} />
+                    <input className='btn' type="submit"/>
+                </form>
+            </div>
+        )
     }
 
     function getActivity() {
-        const url = 'http://www.boredapi.com/api/activity';
-        
-        console.log(`http://www.boredapi.com/api/activity?${queries[value]}=${123}`);
+        let url = 'http://www.boredapi.com/api/activity';
+
+        if (filterType === 'priceRange') {
+            url = `${url}?minprice=${firstValue}&maxprice=${secondValue}`;
+        }
     }
 
     return (
         <>
             <SelectWrap>
-                <select value={value} onChange={handleChange}>
+                <select value={filterType} onChange={handleChange}>
                     <option value="priceRange">Price range</option>
                     <option value="participants">Participants</option>
                     <option value="key">Key</option>
@@ -63,20 +76,23 @@ const FiterContent = () => {
             </SelectWrap>
 
             <QueryType>
-                <div className="block priceRange">
-                    <input type="text" onInput={e => setMinPrice(e.target.value)} />
-                    <input type="text" onInput={e => setMaxPrice(e.target.value)} />
+                <QueryTypeContent />
+                {/* <div className="block priceRange">
+                    <input type="text" onInput={e => setFirstValue(e.target.value)} />
+                    <input type="text" onInput={e => setSecondValue(e.target.value)} />
                 </div>
-                <div className="block participants" style={{ display: 'none' }}>Participants</div>
+                <div className="block participants" style={{ display: 'none' }}>
+                    <p>Enter number of participants</p>
+                    <input type="text" onInput={e => setFirstValue(e.target.value)} />
+                </div>
                 <div className="block key" style={{ display: 'none' }}>Key</div>
                 <div className="block type" style={{ display: 'none' }}>Type</div>
                 <div className="block price" style={{ display: 'none' }}>Price</div>
                 <div className="block accessibility" style={{ display: 'none' }}>Accessibility</div>
-                <div className="block accessibilityRange" style={{ display: 'none' }}>Accessibility range</div>
+                <div className="block accessibilityRange" style={{ display: 'none' }}>Accessibility range</div> */}
             </QueryType>
 
-            <Button>Apply filter</Button>
-            <Button onClick={console.log(minPrice, maxPrice)}>Apply filter</Button>
+            {/* <Button>Apply filter</Button> */}
         </>
     )
 }
@@ -87,7 +103,7 @@ const FilteredActivites = () => {
     return (
         <>
             <h1>This is a bored component</h1>
-            <FiterContent />
+            <FilterContent />
         </>
     )
 }
