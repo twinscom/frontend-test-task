@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Button } from './commonData';
+import { Button, Headline } from './commonData';
 
 const ActivityWrap = styled.div`
     border-radius: 20px;
@@ -30,7 +30,7 @@ const Key = styled.div`
     margin-bottom: 20px !important;	
 `
 const Type = styled.div`
-
+    text-align: left;
 `
 const PriceWrap = styled.div`
     text-align: center;
@@ -42,11 +42,8 @@ const Price = styled.span`
 const PreambulaText = styled.div`
     line-height: 26px;
     margin-bottom: 20px;
-`
-const PreambulaHeader = styled.h1`
-    font-size: 30px;
-    font-weight: 700;
-    margin: 40px 0;
+    margin: 0 auto;
+    margin-bottom: 20px;
 `
 // const Preambula = () => {
 //     return (
@@ -58,7 +55,7 @@ const PreambulaHeader = styled.h1`
 //     )
 // }
 
-function Display() {
+function Activity() {
 
     // TODO make DATA obj global
     const [data, setData] = useState({});
@@ -72,25 +69,24 @@ function Display() {
         setClickCount(clickCount + 1);
     }
 
-    if (Object.keys(data).length === 0) {
+    // if (Object.keys(data).length === 0) {
+    //     return (
+    //         <>
+    //             {/* TODO refactoring: remove duplicate code */}
+    //             <Headline>WhattodoApp</Headline>
+    //             <PreambulaText>Don't know what to do? We'll help you! Just click the button and you'll see the possible variant for your vocation...</PreambulaText>
+    //             <Button onClick={getRandomActivity}>Random</Button>
+    //         </>
+    //     )
+    // } else {
         return (
             <>
                 {/* TODO refactoring: remove duplicate code */}
-                <PreambulaHeader>WhattodoApp</PreambulaHeader>
-                <PreambulaText>Don't know what to do? We'll help you! Just click the button and you'll see the possible variant for your vocation...</PreambulaText>
-                <Button onClick={getRandomActivity}>Random</Button>
-            </>
-        )
-    } else {
-        return (
-            <>
-                {/* TODO refactoring: remove duplicate code */}
-                <PreambulaHeader>WhattodoApp</PreambulaHeader>
-                <PreambulaText>Don't like that? Click... ;-)</PreambulaText>
+                <Headline>WhattodoApp</Headline>
+                <PreambulaText>{Object.keys(data).length === 0 ? `Don't know what to do? We'll help you! Just click the button and you'll see the possible variant for your vocation...` : `Don't like that? Click... ;-)`}</PreambulaText>
                 <Button onClick={getRandomActivity} style={{ marginBottom: '20px' }}>Random</Button>
 
-
-                <ActivityWrap style={{ backgroundColor: '#3F4045', color: '#F4F4F8' }}>
+                <ActivityWrap style={{ backgroundColor: '#3F4045', color: '#F4F4F8' }} className={Object.keys(data).length === 0 ? 'display-none' : ''}>
                     <ActivityHeader>{data.activity}</ActivityHeader>
                     <Key>
                         id: {data.key}
@@ -111,7 +107,7 @@ function Display() {
                 </ActivityWrap>
             </>
         )
-    }
+    // }
 }
 
-export default Display;
+export default Activity;

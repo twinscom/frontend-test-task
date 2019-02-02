@@ -1,11 +1,38 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
 import styled from 'styled-components';
+import { Button, Headline } from './commonData'
 
-const SelectWrap = styled.div`
-margin-bottom: 20px;
+const FilterBlock = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 350px;
 `
-const QueryType = styled.div``
+const Input = styled.input`
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    padding: 15px 25px;
+    border: 1px solid #5BC0BE;
+    transition: all .5s;
+    color: #0B132B;
+    width: 100%;
+    &:active,&:focus{
+        border-color:#0B132B;
+    }
+`
+const Select = styled.select`
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    padding: 15px 25px;
+    border: 1px solid #5BC0BE;
+    transition: all .5s;
+    color: #0B132B;
+    width: 100%;
+    &:active,&:focus{
+        border-color: #0B132B;
+    }
+`
 
 const FilterContent = () => {
     let [filterType, setfilterType] = useState('priceRange');
@@ -31,32 +58,34 @@ const FilterContent = () => {
     }
 
     function validation() {
-        
+
+    }
+
+    function onlyDigits(e) {
+        // e.target.value = e.target.value.replace();
     }
 
     return (
         <>
-            <SelectWrap>
-                <select value={filterType} onChange={handleChange}>
+            <FilterBlock className="filterBlock">
+                <Select value={filterType} onChange={handleChange}>
                     <option value="priceRange">Price range</option>
                     <option value="participants">Participants</option>
-                </select>
-            </SelectWrap>
+                </Select>
 
-            <QueryType>
-                <div className="filterBlock">
-                    <form onSubmit={getActivity}>
-                        <input type="text"
-                            value={firstValue}
-                            onChange={e => setFirstValue(e.target.value)} />
-                        <input type="text"
-                            value={secondValue}
-                            onChange={e => setSecondValue(e.target.value)}
-                            className={filterType === 'priceRange' ? '' : 'display-none'} />
-                        <input className='btn' type="submit" />
-                    </form>
-                </div>
-            </QueryType>
+                <Input type="number"
+                    min='0' max='1' step='0.01'
+                    value={firstValue}
+                    onChange={e => setFirstValue(e.target.value)}
+                    onKeyDown={onlyDigits} />
+                <Input type="number"
+                    min='0' max='1' step='0.01'
+                    value={secondValue}
+                    onChange={e => setSecondValue(e.target.value)}
+                    onKeyDown={onlyDigits}
+                    className={filterType === 'priceRange' ? '' : 'display-none'} />
+                <Button onClick={getActivity} style={{ margin: '0 auto' }}>Filter</Button>
+            </FilterBlock>
 
             {/* <Button>Apply filter</Button> */}
         </>
@@ -68,7 +97,7 @@ const FilteredActivites = () => {
 
     return (
         <>
-            <h1>This is a bored component</h1>
+            <Headline>Filters</Headline>
             <FilterContent />
         </>
     )

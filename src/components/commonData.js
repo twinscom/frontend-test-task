@@ -11,7 +11,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 const Button = styled.button`
     padding: 15px 40px;
-    border-radius: 50px;
+    border-radius: 10px;
     font-weight: 700;
     font-size: 16px;
     background-color: #5BC0BE;
@@ -19,6 +19,7 @@ const Button = styled.button`
     color: #F4F4F8;
     cursor: pointer;
     transition: all .5s;
+	width: 100%;
 
     &:hover{
         background-color: #0B132B;
@@ -100,5 +101,10 @@ const GlobalStyle = createGlobalStyle`
 		}
 	}
 `
+const Headline = styled.h1`
+    font-size: 30px;
+    font-weight: 700;
+    margin: 40px 0;
+`
 export default GlobalStyle;
-export { Button };
+export { Button, Headline};

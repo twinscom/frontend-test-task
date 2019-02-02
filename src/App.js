@@ -1,5 +1,5 @@
 import React from 'react';
-import Display from './components/activities';
+import Activity from './components/activities';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styled from 'styled-components';
 import FilteredActivites from './components/filteredActivites';
@@ -61,7 +61,7 @@ const App = () => (
 			<main>
 				<Container>
 					<Centered>
-						<Route path="/" exact render={() => <Display />} />
+						<Route path="/" exact render={() => <Activity />} />
 						<Route path="/filter/" component={FilteredActivites} />
 					</Centered>
 				</Container>
