@@ -112,6 +112,12 @@ const GlobalStyle = createGlobalStyle`
 		color: #FED766;
 		font-weight: 700;
 	}
+	.space-between{
+		justify-content: space-between;
+	}
+	.flex-center{
+		justify-content: center;
+	}
 `
 const Headline = styled.h1`
     font-size: 30px;
@@ -169,7 +175,6 @@ const Price = styled.span`
     font-size: 24px;
 `
 const ActivityContent = (props) => {
-	console.log(props.data);
 	return (
 		<ActivityWrap className={Object.keys(props.data).length === 0 ? 'display-none' : ''}>
 			<ActivityHeader>{props.data.activity}</ActivityHeader>

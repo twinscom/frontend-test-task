@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from 'styled-components';
-import { Button, Headline, ContainerInnerWrap, ActivityWrap } from './commonData'
+import { Button, Headline, ContainerInnerWrap, ActivityContent } from './commonData'
 
 const FilterBlock = styled.div`
     display: flex;
@@ -36,15 +36,20 @@ const FilterComment = styled.div`
     text-align: left;
     line-height: 20px;
 `
+const ContainerFilters = styled.div`
+    display: flex;
+`
 const FilteredActivites = () => {
     let [filterType, setfilterType] = useState('priceRange');
     const [firstValue, setFirstValue] = useState(0);
     const [secondValue, setSecondValue] = useState(1);
+    const [data, setData] = useState({});
 
     function handleChange(e) {
         setfilterType(e.target.value);
         setFirstValue(0);
         setSecondValue(1);
+        setData({});
     }
 
     function getActivity() {
@@ -56,12 +61,12 @@ const FilteredActivites = () => {
             } else {
                 url = `${url}?participants=${firstValue}`;
             }
-            console.log(url);
+            getRandomActivity(url);
         }
     }
 
     function validateValue(value) {
-        if (value === null || value === undefined || isNaN(value) || value < 0 || value > 1) {
+        if (value === null || value === undefined || isNaN(value)) {
             return false;
         }
         return true;
@@ -80,38 +85,44 @@ const FilteredActivites = () => {
         e.target.value = e.target.value.replace(/[^0-9\.]+/g, '');
     }
 
+    async function getRandomActivity(url) {
+        const result = await axios(url);
+        setData(result.data);
+    }
+
     return (
         <>
-            <ContainerInnerWrap>
-                <Headline>Filters</Headline>
+            <Headline>Filters</Headline>
+            <ContainerFilters className={Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}>
                 <FilterBlock className="filterBlock">
                     <Select value={filterType} onChange={handleChange}>
                         <option value="priceRange">Price range</option>
                         <option value="participants">Participants</option>
                     </Select>
 
-                    <FilterComment>Please enter {filterType === 'priceRange' ? 'price between 0 and 1.' : 'number of participants of the activity.'}</FilterComment>
+                    <FilterComment>Please enter {filterType === 'priceRange' ? 'price range. Min value is 0 and max value is 1.' : 'number of participants of the activity.'}</FilterComment>
 
                     <Input type="text"
                         value={firstValue}
                         onChange={e => setFirstValue(e.target.value)}
                         className={!validateValue(firstValue) ? 'error-input' : null}
                         placeholder={filterType === 'priceRange' ? 'Min value' : 'Participants'}
-                        onKeyUp={onlyDigits}/>
+                        onKeyUp={onlyDigits} />
                     <Input type="text"
                         value={secondValue}
                         onChange={e => setSecondValue(e.target.value)}
                         className={!validateValue(secondValue) ? 'error-input' : null}
                         style={filterType === 'priceRange' ? { dislay: 'inline' } : { display: 'none' }}
                         placeholder={filterType === 'priceRange' ? 'Max value' : null}
-                        onKeyUp={onlyDigits}/>
+                        onKeyUp={onlyDigits} />
                     <Button onClick={getActivity}
                         style={{ margin: '0 auto' }}
                         disabled={!(validateValue(+firstValue) && validateValue(+secondValue)) ? 'disabled' : null}>
                         Filter
                         </Button>
                 </FilterBlock>
-            </ContainerInnerWrap>
+                <ActivityContent data = {data}/>
+            </ContainerFilters>
         </>
     )
 }
