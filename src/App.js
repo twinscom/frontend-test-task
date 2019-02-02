@@ -3,15 +3,10 @@ import Activity from './components/activities';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styled from 'styled-components';
 import FilteredActivites from './components/filteredActivites';
-import GlobalStyle from './components/commonData';
+import GlobalStyle, {Container} from './components/commonData';
 
 const Nav = styled.nav`
 	background-color: #3F4045;
-`
-const Container = styled.div`
-	width: 70%;
-	margin: 0 auto;
-	padding: 20px 0;
 `
 const Ul = styled.ul`
 	display: flex;

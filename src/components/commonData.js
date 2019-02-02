@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 //
@@ -24,6 +25,12 @@ const Button = styled.button`
     &:hover{
         background-color: #0B132B;
     }
+	&:disabled{
+		background-color: grey;
+		&:hover{
+			background-color: grey;
+    	}
+	}
 `
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
@@ -79,9 +86,6 @@ const GlobalStyle = createGlobalStyle`
 		font-family: 'Montserrat', sans-serif;
 		color: #3F4045;
 	}
-	strong{
-		font-weight: 700;
-	}
 	.display-none{
 		display: none;
 	}
@@ -100,11 +104,94 @@ const GlobalStyle = createGlobalStyle`
 			background-color: #0B132B;
 		}
 	}
+	.error-input{
+		border-color: #FF7373 !important;
+	}
+	.price{
+		text-transform: uppercase;
+		color: #FED766;
+		font-weight: 700;
+	}
 `
 const Headline = styled.h1`
     font-size: 30px;
     font-weight: 700;
     margin: 40px 0;
 `
+const Container = styled.div`
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px 0;
+`
+const ContainerInnerWrap = styled.div`
+	max-width: 350px;
+	margin: 0 auto;
+`
+const ActivityWrap = styled.div`
+    border-radius: 20px;
+    padding: 20px;
+    margin: 0 auto;
+	background-color: #3F4045;
+	color: #F4F4F8;
+    div{
+        margin-bottom: 10px;
+    }
+`
+const Strong = styled.strong`
+	color: #5BC0BE;
+	font-weight: 700;
+`
+const ActivityHeader = styled.h3`
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 5px;
+`
+const Participants = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+const Key = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    margin-bottom: 20px !important;	
+`
+const Type = styled.div`
+    text-align: left;
+`
+const PriceWrap = styled.div`
+    text-align: center;
+    margin-top: 40px;
+`
+const Price = styled.span`
+    font-size: 24px;
+`
+const ActivityContent = (props) => {
+	console.log(props.data);
+	return (
+		<ActivityWrap className={Object.keys(props.data).length === 0 ? 'display-none' : ''}>
+			<ActivityHeader>{props.data.activity}</ActivityHeader>
+			<Key>
+				id: {props.data.key}
+			</Key>
+			<Type>
+				<span>Activity type: <Strong>{props.data.type}</Strong></span>
+			</Type>
+			<Participants>
+				Participants: {props.data.participants}
+			</Participants>
+			<PriceWrap>
+				<Price>
+					<i className={props.data.price === 0 ? 'price' : null}>
+						{props.data.price === 0 ? `It's free!` : `Price: $${props.data.price}`}
+					</i>
+				</Price>
+			</PriceWrap>
+		</ActivityWrap>
+	)
+}
+
 export default GlobalStyle;
-export { Button, Headline};
+export { Button, Headline, Container, ContainerInnerWrap, ActivityWrap, Strong, ActivityContent };

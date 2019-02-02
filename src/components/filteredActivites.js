@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
 import styled from 'styled-components';
-import { Button, Headline } from './commonData'
+import { Button, Headline, ContainerInnerWrap, ActivityWrap } from './commonData'
 
 const FilterBlock = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    max-width: 350px;
 `
 const Input = styled.input`
     margin: 0 auto 20px;
@@ -33,72 +31,87 @@ const Select = styled.select`
         border-color: #0B132B;
     }
 `
-
-const FilterContent = () => {
+const FilterComment = styled.div`
+    margin: 40px 0 10px;
+    text-align: left;
+    line-height: 20px;
+`
+const FilteredActivites = () => {
     let [filterType, setfilterType] = useState('priceRange');
-    const [firstValue, setFirstValue] = useState();
-    const [secondValue, setSecondValue] = useState();
+    const [firstValue, setFirstValue] = useState(0);
+    const [secondValue, setSecondValue] = useState(1);
 
     function handleChange(e) {
         setfilterType(e.target.value);
-        setFirstValue('');
-        setSecondValue('');
+        setFirstValue(0);
+        setSecondValue(1);
     }
 
-    function getActivity(e) {
-        e.preventDefault();
-        let url = 'http://www.boredapi.com/api/activity';
+    function getActivity() {
+        if (validation()) {
+            let url = 'http://www.boredapi.com/api/activity';
 
-        if (filterType === 'priceRange') {
-            url = `${url}?minprice=${firstValue}&maxprice=${secondValue}`;
-        } else if (filterType === 'participants') {
-            url = `${url}?participants=${firstValue}`;
+            if (filterType === 'priceRange') {
+                url = `${url}?minprice=${firstValue}&maxprice=${secondValue}`;
+            } else {
+                url = `${url}?participants=${firstValue}`;
+            }
+            console.log(url);
         }
-        console.log(url);
     }
 
+    function validateValue(value) {
+        if (value === null || value === undefined || isNaN(value) || value < 0 || value > 1) {
+            return false;
+        }
+        return true;
+    }
     function validation() {
-
+        if (filterType === 'priceRange') {
+            if (firstValue > secondValue) {
+                return false;
+            }
+            return (validateValue(firstValue) && validateValue(secondValue));
+        } else {
+            return validateValue(firstValue);
+        }
     }
-
     function onlyDigits(e) {
-        // e.target.value = e.target.value.replace();
+        e.target.value = e.target.value.replace(/[^0-9\.]+/g, '');
     }
 
     return (
         <>
-            <FilterBlock className="filterBlock">
-                <Select value={filterType} onChange={handleChange}>
-                    <option value="priceRange">Price range</option>
-                    <option value="participants">Participants</option>
-                </Select>
+            <ContainerInnerWrap>
+                <Headline>Filters</Headline>
+                <FilterBlock className="filterBlock">
+                    <Select value={filterType} onChange={handleChange}>
+                        <option value="priceRange">Price range</option>
+                        <option value="participants">Participants</option>
+                    </Select>
 
-                <Input type="number"
-                    min='0' max='1' step='0.01'
-                    value={firstValue}
-                    onChange={e => setFirstValue(e.target.value)}
-                    onKeyDown={onlyDigits} />
-                <Input type="number"
-                    min='0' max='1' step='0.01'
-                    value={secondValue}
-                    onChange={e => setSecondValue(e.target.value)}
-                    onKeyDown={onlyDigits}
-                    className={filterType === 'priceRange' ? '' : 'display-none'} />
-                <Button onClick={getActivity} style={{ margin: '0 auto' }}>Filter</Button>
-            </FilterBlock>
+                    <FilterComment>Please enter {filterType === 'priceRange' ? 'price between 0 and 1.' : 'number of participants of the activity.'}</FilterComment>
 
-            {/* <Button>Apply filter</Button> */}
-        </>
-    )
-}
-
-const FilteredActivites = () => {
-
-
-    return (
-        <>
-            <Headline>Filters</Headline>
-            <FilterContent />
+                    <Input type="text"
+                        value={firstValue}
+                        onChange={e => setFirstValue(e.target.value)}
+                        className={!validateValue(firstValue) ? 'error-input' : null}
+                        placeholder={filterType === 'priceRange' ? 'Min value' : 'Participants'}
+                        onKeyUp={onlyDigits}/>
+                    <Input type="text"
+                        value={secondValue}
+                        onChange={e => setSecondValue(e.target.value)}
+                        className={!validateValue(secondValue) ? 'error-input' : null}
+                        style={filterType === 'priceRange' ? { dislay: 'inline' } : { display: 'none' }}
+                        placeholder={filterType === 'priceRange' ? 'Max value' : null}
+                        onKeyUp={onlyDigits}/>
+                    <Button onClick={getActivity}
+                        style={{ margin: '0 auto' }}
+                        disabled={!(validateValue(+firstValue) && validateValue(+secondValue)) ? 'disabled' : null}>
+                        Filter
+                        </Button>
+                </FilterBlock>
+            </ContainerInnerWrap>
         </>
     )
 }
