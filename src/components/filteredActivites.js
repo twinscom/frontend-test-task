@@ -82,7 +82,7 @@ const FilteredActivites = () => {
         }
     }
     function onlyDigits(e) {
-        e.target.value = e.target.value.replace(/[^0-9\.]+/g, '');
+        e.target.value = e.target.value.replace(/[^0-9.]+/g, '');
     }
 
     async function getRandomActivity(url) {
@@ -94,7 +94,7 @@ const FilteredActivites = () => {
         <>
             <Headline>Filters</Headline>
             <ContainerFilters className={Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}>
-                <FilterBlock className="filterBlock">
+                <FilterBlock className={`filterBlock ${Object.keys(data).length !== 0 ? 'col-1-of-2' : null}`} >
                     <Select value={filterType} onChange={handleChange}>
                         <option value="priceRange">Price range</option>
                         <option value="participants">Participants</option>
@@ -111,8 +111,7 @@ const FilteredActivites = () => {
                     <Input type="text"
                         value={secondValue}
                         onChange={e => setSecondValue(e.target.value)}
-                        className={!validateValue(secondValue) ? 'error-input' : null}
-                        style={filterType === 'priceRange' ? { dislay: 'inline' } : { display: 'none' }}
+                        className={`${filterType === 'priceRange' ? null : 'display-none'} ${!validateValue(secondValue) ? 'error-input' : null}`}
                         placeholder={filterType === 'priceRange' ? 'Max value' : null}
                         onKeyUp={onlyDigits} />
                     <Button onClick={getActivity}
@@ -121,7 +120,7 @@ const FilteredActivites = () => {
                         Filter
                         </Button>
                 </FilterBlock>
-                <ActivityContent data = {data}/>
+                <ActivityContent filter={filterType} data={data} />
             </ContainerFilters>
         </>
     )

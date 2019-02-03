@@ -87,7 +87,7 @@ const GlobalStyle = createGlobalStyle`
 		color: #3F4045;
 	}
 	.display-none{
-		display: none;
+		display: none !important;
 	}
 	.btn{
 		padding: 15px 40px;
@@ -98,7 +98,13 @@ const GlobalStyle = createGlobalStyle`
 		border: none;
 		color: #F4F4F8;
 		cursor: pointer;
-		transition: all .5s;
+		transition: all .5s;		
+
+		&.btn-small{
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 12px;
+		}
 
 		&:hover{
 			background-color: #0B132B;
@@ -118,6 +124,13 @@ const GlobalStyle = createGlobalStyle`
 	.flex-center{
 		justify-content: center;
 	}
+	.col-1-of-2{
+		width: 50%;
+		padding: 0 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 `
 const Headline = styled.h1`
     font-size: 30px;
@@ -134,7 +147,7 @@ const ContainerInnerWrap = styled.div`
 	margin: 0 auto;
 `
 const ActivityWrap = styled.div`
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     margin: 0 auto;
 	background-color: #3F4045;
@@ -176,24 +189,31 @@ const Price = styled.span`
 `
 const ActivityContent = (props) => {
 	return (
-		<ActivityWrap className={Object.keys(props.data).length === 0 ? 'display-none' : ''}>
-			<ActivityHeader>{props.data.activity}</ActivityHeader>
-			<Key>
-				id: {props.data.key}
-			</Key>
-			<Type>
-				<span>Activity type: <Strong>{props.data.type}</Strong></span>
-			</Type>
-			<Participants>
-				Participants: {props.data.participants}
-			</Participants>
-			<PriceWrap>
-				<Price>
-					<i className={props.data.price === 0 ? 'price' : null}>
-						{props.data.price === 0 ? `It's free!` : `Price: $${props.data.price}`}
-					</i>
-				</Price>
-			</PriceWrap>
+		<ActivityWrap className={`${props.filter ? 'col-1-of-2' : null} ${Object.keys(props.data).length === 0 ? 'display-none' : null}`}>
+			<div className={Object.keys(props.data).length === 1 ? 'display-none' : null}>
+				<ActivityHeader>{props.data.activity}</ActivityHeader>
+				<Key>
+					id: {props.data.key}
+				</Key>
+				<Type>
+					<span>Activity type: <Strong>{props.data.type}</Strong></span>
+				</Type>
+				<Participants>
+					Participants: {props.data.participants}
+				</Participants>
+				<PriceWrap>
+					<Price>
+						<i className={props.data.price === 0 ? 'price' : null}>
+							{props.data.price === 0 ? `It's free!` : `Price: $${props.data.price}`}
+						</i>
+					</Price>
+				</PriceWrap>
+			</div>
+			<div className={Object.keys(props.data).length === 1 ? null : 'display-none'}>
+				<ActivityHeader>
+					{props.data.error}
+				</ActivityHeader>
+			</div>
 		</ActivityWrap>
 	)
 }
