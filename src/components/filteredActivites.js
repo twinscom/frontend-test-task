@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Button, Headline, ContainerInnerWrap, ActivityContent } from './commonData'
+import { Button, Headline, ActivityContent } from './commonData'
 
 const FilterBlock = styled.div`
     display: flex;

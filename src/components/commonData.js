@@ -1,15 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-//
-// 	color: #3F4045; //grey
-// 	color: #5BC0BE; //blue
-// 	color: #0B132B; //darkBlue
-// 	color: #F4F4F8; //white
-// 	color: #FED766; //yellow
-// 
-// font: 'Montserrat', sans - serif;
-
 const Button = styled.button`
     padding: 15px 40px;
     border-radius: 10px;
