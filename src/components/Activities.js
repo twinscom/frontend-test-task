@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Button, Headline, ContainerInnerWrap, ActivityContent } from './commonData';
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const PreambulaText = styled.div`
     line-height: 26px;
@@ -66,7 +66,7 @@ function Activity() {
         setModalOpened(false);
 
     }
-    
+
     return (
         <>
             <ContainerInnerWrap>
@@ -78,12 +78,12 @@ function Activity() {
             </ContainerInnerWrap>
             <Modal className={modalOpened ? null : 'display-none'} id='modal' >
                 <div className="modal">
-                    <h3>You found {clickCount-1} activities</h3>
+                    <h3>You found {clickCount - 1} activities</h3>
                     <p>Still don't know what to choose? Maybe filters help you...</p>
                     <div className="modal-buttons">
-                        <div className='col-1-of-2'>                            
+                        <div className='col-1-of-2'>
                             <button className='btn btn-small' onClick={modalClose}>Cancel</button>
-                        </div>  
+                        </div>
                         <div className="col-1-of-2">
                             <Link to="/filter/" className='btn btn-small'>Try!</Link>
                         </div>
