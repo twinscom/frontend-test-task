@@ -49,7 +49,7 @@ const Modal = styled.div`
 `
 function Activity() {
     const [data, setData] = useState({});
-    let [clickCount, setClickCount] = useState(1);
+    const [clickCount, setClickCount] = useState(1);
     let [modalOpened, setModalOpened] = useState(false);
 
     async function getRandomActivity() {
