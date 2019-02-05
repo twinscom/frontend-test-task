@@ -196,31 +196,31 @@ const PriceWrap = styled.div`
 const Price = styled.span`
     font-size: 24px;
 `
-const ActivityContent = (props) => {
+const ActivityContent = ({filter, data}) => {
 	return (
-		<ActivityWrap className={`${props.filter ? 'col-1-of-2' : null} ${Object.keys(props.data).length === 0 ? 'display-none' : null}`}>
-			<div className={Object.keys(props.data).length === 1 ? 'display-none' : null}>
-				<ActivityHeader>{props.data.activity}</ActivityHeader>
+		<ActivityWrap className={`${filter ? 'col-1-of-2' : null} ${Object.keys(data).length === 0 ? 'display-none' : null}`}>
+			<div className={Object.keys(data).length === 1 ? 'display-none' : null}>
+				<ActivityHeader>{data.activity}</ActivityHeader>
 				<Key>
-					id: {props.data.key}
+					id: {data.key}
 				</Key>
 				<Type>
-					<span>Activity type: <Strong>{props.data.type}</Strong></span>
+					<span>Activity type: <Strong>{data.type}</Strong></span>
 				</Type>
 				<Participants>
-					Participants: {props.data.participants}
+					Participants: {data.participants}
 				</Participants>
 				<PriceWrap>
 					<Price>
-						<i className={props.data.price === 0 ? 'price' : null}>
-							{props.data.price === 0 ? `It's free!` : `Price: $${props.data.price}`}
+						<i className={data.price === 0 ? 'price' : null}>
+							{data.price === 0 ? `It's free!` : `Price: $${data.price}`}
 						</i>
 					</Price>
 				</PriceWrap>
 			</div>
-			<div className={Object.keys(props.data).length === 1 ? null : 'display-none'}>
+			<div className={Object.keys(data).length === 1 ? null : 'display-none'}>
 				<ActivityHeader>
-					{props.data.error}
+					{data.error}
 				</ActivityHeader>
 			</div>
 		</ActivityWrap>
