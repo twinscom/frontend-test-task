@@ -59,7 +59,9 @@ function Activity() {
         setData(result.data);
         setClickCount(clickCount + 1);
         if ((clickCount % 5) === 0) {
-            setModalOpened(true);
+            setTimeout(() => {
+                setModalOpened(true);
+            }, 500);
         }
     }
     function modalClose() {
@@ -81,10 +83,10 @@ function Activity() {
                     <h3>You found {clickCount - 1} activities</h3>
                     <p>Still don't know what to choose? Maybe filters help you...</p>
                     <div className="modal-buttons">
-                        <div className='col-1-of-2'>
+                        <div className='col-1-of-2 flex-center-center'>
                             <button className='btn btn-small' onClick={modalClose}>Cancel</button>
                         </div>
-                        <div className="col-1-of-2">
+                        <div className="col-1-of-2 flex-center-center">
                             <Link to="/filter/" className='btn btn-small'>Try!</Link>
                         </div>
                     </div>

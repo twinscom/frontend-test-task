@@ -38,6 +38,10 @@ const FilterComment = styled.div`
 `
 const ContainerFilters = styled.div`
     display: flex;
+    flex-direction: row;
+    @media screen  and (max-width: 719px){
+        flex-direction: column;	
+	}
 `
 const FilteredActivites = () => {
     let [filterType, setfilterType] = useState('priceRange');
@@ -66,7 +70,7 @@ const FilteredActivites = () => {
     }
 
     function validateValue(value) {
-        if (value === null || value === undefined || isNaN(value)) {
+        if (value === null || value === undefined || isNaN(value) || value === '') {
             return false;
         }
         return true;
@@ -89,11 +93,10 @@ const FilteredActivites = () => {
         const result = await axios(url);
         setData(result.data);
     }
-
     return (
         <>
             <Headline>Filters</Headline>
-            <ContainerFilters className={Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}>
+            <ContainerFilters className={`row ${Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}`}>
                 <FilterBlock className={`filterBlock ${Object.keys(data).length !== 0 ? 'col-1-of-2' : null}`} >
                     <Select value={filterType} onChange={handleChange}>
                         <option value="priceRange">Price range</option>
@@ -104,19 +107,19 @@ const FilteredActivites = () => {
 
                     <Input type="text"
                         value={firstValue}
-                        onChange={e => setFirstValue(e.target.value)}
+                        onChange={e => setFirstValue(+e.target.value)}
                         className={!validateValue(firstValue) ? 'error-input' : null}
                         placeholder={filterType === 'priceRange' ? 'Min value' : 'Participants'}
                         onKeyUp={onlyDigits} />
                     <Input type="text"
                         value={secondValue}
-                        onChange={e => setSecondValue(e.target.value)}
+                        onChange={e => setSecondValue(+e.target.value)}
                         className={`${filterType === 'priceRange' ? null : 'display-none'} ${!validateValue(secondValue) ? 'error-input' : null}`}
                         placeholder={filterType === 'priceRange' ? 'Max value' : null}
                         onKeyUp={onlyDigits} />
                     <Button onClick={getActivity}
                         style={{ margin: '0 auto' }}
-                        disabled={!(validateValue(+firstValue) && validateValue(+secondValue)) ? 'disabled' : null}>
+                        disabled={!(validateValue(firstValue) && validateValue(secondValue)) ? 'disabled' : null}>
                         Filter
                         </Button>
                 </FilterBlock>

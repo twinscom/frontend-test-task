@@ -18,9 +18,6 @@ const Button = styled.button`
     }
 	&:disabled{
 		background-color: grey;
-		&:hover{
-			background-color: grey;
-    	}
 	}
 `
 const GlobalStyle = createGlobalStyle`
@@ -115,12 +112,33 @@ const GlobalStyle = createGlobalStyle`
 	.flex-center{
 		justify-content: center;
 	}
-	.col-1-of-2{
-		width: 50%;
-		padding: 0 10px;
+	.flex-center-center{
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	.col-1-of-2{		
+		width: 50%;
+		padding: 20px;
+	}
+	@media screen  and (max-width: 719px){
+		.row{
+			.col-1-of-2{
+				width: 100%;
+				padding: 0 10px;			
+				margin: 0 auto;
+				/* padding: 20px; */
+				box-sizing: border-box;
+
+				&:not(:last-child){
+					margin-bottom: 40px;
+				}
+				&:last-child{
+					padding: 20px;
+					width: calc(100% - 20px);
+				}
+			}
+		}		
 	}
 `
 const Headline = styled.h1`
