@@ -19,18 +19,6 @@ const Input = styled.input`
         border-color:#0B132B;
     }
 `
-const Select = styled.select`
-    margin: 0 auto 20px;
-    border-radius: 10px;
-    padding: 15px 25px;
-    border: 1px solid #5BC0BE;
-    transition: all .5s;
-    color: #0B132B;
-    width: 100%;
-    &:active,&:focus{
-        border-color: #0B132B;
-    }
-`
 const FilterComment = styled.div`
     margin: 40px 0 10px;
     text-align: left;
@@ -98,10 +86,10 @@ const FilteredActivites = () => {
             <Headline>Filters</Headline>
             <ContainerFilters className={`row ${Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}`}>
                 <FilterBlock className={`filterBlock ${Object.keys(data).length !== 0 ? 'col-1-of-2' : null}`} >
-                    <Select value={filterType} onChange={handleChange}>
+                    <Input as='select' value={filterType} onChange={handleChange}>
                         <option value="priceRange">Price range</option>
                         <option value="participants">Participants</option>
-                    </Select>
+                    </Input>
 
                     <FilterComment>Please enter {filterType === 'priceRange' ? 'price range. Min value is 0 and max value is 1.' : 'number of participants of the activity.'}</FilterComment>
 
