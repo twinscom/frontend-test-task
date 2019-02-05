@@ -1,5 +1,5 @@
 import React from 'react';
-import Activity from './components/activities';
+import Activity from './components/_activities';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styled from 'styled-components';
 import FilteredActivites from './components/filteredActivites';
