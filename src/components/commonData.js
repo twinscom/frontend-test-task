@@ -155,36 +155,48 @@ const PriceWrap = styled.div`
 const Price = styled.span`
     font-size: 24px;
 `
-const ActivityContent = ({ filter, data }) => {
-	const dataKeysCount = Object.keys(data).length;
+const Success = ({ data }) => {
 	return (
-		<ActivityWrap className={`${filter ? 'col-1-of-2' : ''} ${dataKeysCount === 0 ? 'display-none' : ''}`}>
-			<div className={data.error ? 'display-none' : ''}>
-				<ActivityHeader>{data.activity}</ActivityHeader>
-				<Key>
-					id: {data.key}
-				</Key>
-				<Type>
-					<span>Activity type: <Strong>{data.type}</Strong></span>
-				</Type>
-				<Participants>
-					Participants: {data.participants}
-				</Participants>
-				<PriceWrap>
-					<Price>
-						{
-							data.price === 0
-								? <i className="price">It's free!</i>
-								: <i>Price: {data.price}</i>
-						}
-					</Price>
-				</PriceWrap>
-			</div>
-			<div className={dataKeysCount === 1 ? '' : 'display-none'}>
-				<ActivityHeader>
-					{data.error}
-				</ActivityHeader>
-			</div>
+		<div className={data.error ? 'display-none' : ''}>
+			<ActivityHeader>{data.activity}</ActivityHeader>
+			<Key>
+				id: {data.key}
+			</Key>
+			<Type>
+				<span>Activity type: <Strong>{data.type}</Strong></span>
+			</Type>
+			<Participants>
+				Participants: {data.participants}
+			</Participants>
+			<PriceWrap>
+				<Price>
+					{
+						data.price === 0
+							? <i className="price">It's free!</i>
+							: <i>Price: {data.price}</i>
+					}
+				</Price>
+			</PriceWrap>
+		</div>
+	)
+}
+const Error = ({ data }) => {
+	return (
+		<div className={data.error ? '' : 'display-none'}>
+			<ActivityHeader>
+				{data.error}
+			</ActivityHeader>
+		</div>
+	)
+}
+const ActivityContent = ({ filter, data }) => {
+	return (
+		<ActivityWrap className={`${filter ? 'col-1-of-2' : ''} ${Object.keys(data).length === 0 ? 'display-none' : ''}`}>
+			{
+				data.error
+					? <Error data={data} />
+					: <Success data={data} />
+			}
 		</ActivityWrap>
 	)
 }
