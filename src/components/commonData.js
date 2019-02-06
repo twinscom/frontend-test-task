@@ -199,8 +199,8 @@ const Price = styled.span`
 const ActivityContent = ({ filter, data }) => {
 	const dataKeysCount = Object.keys(data).length;
 	return (
-		<ActivityWrap className={`${filter ? 'col-1-of-2' : null} ${dataKeysCount === 0 ? 'display-none' : null}`}>
-			<div className={dataKeysCount === 1 ? 'display-none' : null}>
+		<ActivityWrap className={`${filter ? 'col-1-of-2' : ''} ${dataKeysCount === 0 ? 'display-none' : ''}`}>
+			<div className={dataKeysCount === 1 ? 'display-none' : ''}>
 				<ActivityHeader>{data.activity}</ActivityHeader>
 				<Key>
 					id: {data.key}
@@ -213,13 +213,13 @@ const ActivityContent = ({ filter, data }) => {
 				</Participants>
 				<PriceWrap>
 					<Price>
-						<i className={data.price === 0 ? 'price' : null}>
+						<i className={data.price === 0 ? 'price' : ''}>
 							{data.price === 0 ? `It's free!` : `Price: $${data.price}`}
 						</i>
 					</Price>
 				</PriceWrap>
 			</div>
-			<div className={dataKeysCount === 1 ? null : 'display-none'}>
+			<div className={dataKeysCount === 1 ? '' : 'display-none'}>
 				<ActivityHeader>
 					{data.error}
 				</ActivityHeader>

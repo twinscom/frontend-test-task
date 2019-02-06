@@ -85,7 +85,7 @@ const FilteredActivites = () => {
         <>
             <Headline>Filters</Headline>
             <ContainerFilters className={`row ${Object.keys(data).length === 0 ? 'flex-center' : 'space-between'}`}>
-                <FilterBlock className={`filterBlock ${Object.keys(data).length !== 0 ? 'col-1-of-2' : null}`} >
+                <FilterBlock className={`filterBlock ${Object.keys(data).length !== 0 ? 'col-1-of-2' : ''}`} >
                     <Input as='select' value={filterType} onChange={handleChange}>
                         <option value="priceRange">Price range</option>
                         <option value="participants">Participants</option>
@@ -96,18 +96,18 @@ const FilteredActivites = () => {
                     <Input type="text"
                         value={firstValue}
                         onChange={e => setFirstValue(+e.target.value)}
-                        className={!validateValue(firstValue) ? 'error-input' : null}
+                        className={!validateValue(firstValue) ? 'error-input' : ''}
                         placeholder={filterType === 'priceRange' ? 'Min value' : 'Participants'}
                         onKeyUp={onlyDigits} />
                     <Input type="text"
                         value={secondValue}
                         onChange={e => setSecondValue(+e.target.value)}
-                        className={`${filterType === 'priceRange' ? null : 'display-none'} ${!validateValue(secondValue) ? 'error-input' : null}`}
-                        placeholder={filterType === 'priceRange' ? 'Max value' : null}
+                        className={`${filterType === 'priceRange' ? '' : 'display-none'} ${!validateValue(secondValue) ? 'error-input' : ''}`}
+                        placeholder={filterType === 'priceRange' ? 'Max value' : ''}
                         onKeyUp={onlyDigits} />
                     <Button onClick={getActivity}
                         style={{ margin: '0 auto' }}
-                        disabled={!(validateValue(firstValue) && validateValue(secondValue)) ? 'disabled' : null}>
+                        disabled={!(validateValue(firstValue) && validateValue(secondValue)) ? 'disabled' : ''}>
                         Filter
                         </Button>
                 </FilterBlock>

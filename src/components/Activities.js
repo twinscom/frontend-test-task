@@ -78,7 +78,7 @@ function Activity() {
 
                 <ActivityContent data={data} />
             </ContainerInnerWrap>
-            <Modal className={modalOpened ? null : 'display-none'} id='modal' >
+            <Modal className={modalOpened ? '' : 'display-none'} id='modal' >
                 <div className="modal">
                     <h3>You found {clickCount - 1} activities</h3>
                     <p>Still don't know what to choose? Maybe filters help you...</p>
